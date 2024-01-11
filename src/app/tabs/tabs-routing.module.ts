@@ -8,29 +8,38 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'inicio',
+        loadChildren: () =>
+          import('../pagesUsuario/tela-inicial/tela-inicial.module').then(
+            (m) => m.TelaInicialPageModule
+          ),
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'turmas',
+        loadChildren: () =>
+          import('../pagesUsuario/turmas/turmas.module').then(
+            (m) => m.TurmasPageModule
+          ),
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'perfil',
+        loadChildren: () =>
+          import('../pagesUsuario/perfil/perfil.module').then(
+            (m) => m.PerfilPageModule
+          ),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      }
-    ]
+        redirectTo: '/tabs/inicio',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
-  }
+    redirectTo: '/tabs/inicio',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({

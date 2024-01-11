@@ -1,0 +1,23 @@
+ion-toolbar {
+  --background: var(--azul);
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+figure {
+  width: fit-content;
+  margin: auto;
+}
+
+.logo {
+  width: 90vw;
+}
+
+.filtros{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 10px 50px;
+}

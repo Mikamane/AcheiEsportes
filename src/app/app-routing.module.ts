@@ -4,13 +4,35 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
-  }
+    loadChildren: () =>
+      import('./tabs/tabs.module').then((m) => m.TabsPageModule),
+  },
+  {
+    path: 'tela-inicial',
+    loadChildren: () =>
+      import('./pagesUsuario/tela-inicial/tela-inicial.module').then(
+        (m) => m.TelaInicialPageModule
+      ),
+  },
+  {
+    path: 'perfil',
+    loadChildren: () =>
+      import('./pagesUsuario/perfil/perfil.module').then(
+        (m) => m.PerfilPageModule
+      ),
+  },
+  {
+    path: 'turmas',
+    loadChildren: () =>
+      import('./pagesUsuario/turmas/turmas.module').then(
+        (m) => m.TurmasPageModule
+      ),
+  },
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
