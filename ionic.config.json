@@ -1,0 +1,7 @@
+{
+  "name": "AcheiEsportes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
