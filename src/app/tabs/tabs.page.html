@@ -1,4 +1,8 @@
-<ion-tabs>
+<ion-content>
+  <app-form-login *ngIf="!isLogged"></app-form-login>
+  
+</ion-content>
+<ion-tabs *ngIf="isLogged">
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="inicio" href="/tabs/inicio">
       <ion-icon name="search-outline"></ion-icon>

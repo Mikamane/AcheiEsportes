@@ -1,0 +1,47 @@
+/* CHAMADA DAS FONTES IMPORTADAS DO GOOGLE ## Import presente no arquivo 'global.scss' ##
+font-family: 'Montserrat', sans-serif;
+font-family: 'Roboto Flex', sans-serif; */
+
+
+/* ----------------------- Header "Seu Perfil" ----------------------- */
+ion-toolbar {
+  --background: var(--azul);
+}
+
+ion-title {
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  margin-left: 10vw;
+  text-transform: capitalize;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* ----------------------- Botão de Opções ----------------------- */
+
+/* ----------------------- Foto de perfil, Nome e Apelido ----------------------- */
+
+.fotoPerfil {
+  clip-path: circle();
+  object-fit: cover;
+  object-position: center;
+  min-width: 250px;
+  height: 250px;
+}
+
+/* ----------------------- Botão de informações completas ----------------------- */
+
+/* ----------------------- Sessão de fotos ----------------------- */
+ion-col {
+  background-color: #135d54;
+  border: solid 1px #fff;
+  color: #fff;
+  text-align: center;
+  height: 100px;
+  font-size: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+}

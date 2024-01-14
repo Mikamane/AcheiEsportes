@@ -1,0 +1,164 @@
+/* CHAMADA DAS FONTES IMPORTADAS DO GOOGLE ## Import presente no arquivo 'global.scss' ##
+font-family: 'Montserrat', sans-serif;
+font-family: 'Roboto Flex', sans-serif; */
+
+
+/* Configurações padrão dos ion-content */
+ion-content {
+    --background: var(--azul);
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    --padding-top: 50px;
+    --padding-bottom: 0px;
+    --padding-start: 13px;
+    --padding-end: 13px;
+    margin: 0;
+}
+
+/* Configurações padrão dos ion-button */
+ion-button {
+    --background: linear-gradient(to bottom, #dbdbdb, #b6b6b6);
+    color: #000;
+    font-size: 1rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: none;
+    font-family: 'Roboto Flex', sans-serif;
+    --border-radius: 5px;
+    width: 100%;
+    min-height: 45px;
+    margin: 0;
+}
+
+/* logo */
+figure {
+    max-width: 400px;
+    margin: 0;
+    background-color: var(--azul);
+    padding: 30px 8px 0;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+}
+
+/* ##### Início do form de login ##### */
+
+form {
+    border: 2px solid white;
+    border-radius: 10px;
+    position: relative;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 30px 10px 0px;
+}
+
+.titleLogin {
+    position: absolute;
+    z-index: 9999;
+    align-self: center;
+    top: -4.5vw;
+    background-color: var(--azul);
+    color: white;
+    width: fit-content;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 8px 0 9px;
+}
+
+ion-input {
+    margin: 5px 0 15px;
+    --background: rgba(255, 255, 255, 0.85);
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 5px;
+}
+
+.btnEntrar {
+    margin: 20px 0;
+}
+
+legend {
+    color: white;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 300;
+    width: 70%;
+    align-self: center;
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: var(--verde);
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+h6 {
+    text-align: center;
+    width: 100%;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+    border-bottom: .1px solid white;
+}
+
+/* ##### Início da escolha de forma de cadastro ##### */
+.titleEscolha {
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin: 0 0 20px;
+    padding: 0;
+}
+
+.btnEscolha {
+    height: 15vh;
+    margin-bottom: 20px;
+    text-align: center;
+    text-wrap: wrap;
+    --background: linear-gradient(to bottom, #ffffff, #ffffff);
+}
+
+/* ##### Início do cadastro de PF ##### */
+
+.formCad{
+    margin-bottom: 20px;
+}
+
+.titleCad {
+    position: absolute;
+    z-index: 9999;
+    align-self: center;
+    top: -4.5vw;
+    background-color: var(--azul);
+    color: white;
+    width: fit-content;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0 8px 0 9px;
+}
+
+.btnCad {
+    margin: 15px 0 10px;
+}

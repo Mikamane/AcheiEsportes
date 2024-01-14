@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  produtos: any = [];
+
+  add() {
+    this.produtos = [
+      ...this.produtos,
+      {
+        n: 2,
+      },
+    ];
   }
-
 }

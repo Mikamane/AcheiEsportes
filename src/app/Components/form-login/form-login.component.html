@@ -1,0 +1,104 @@
+<!-- Logo -->
+<figure>
+  <img src="../../../assets/icon&logo/logo.png" class="logo">
+</figure>
+
+<!-- --------------- PARTE DE LOGIN --------------- -->
+<ion-content class="contentLogin" *ngIf="!wantsCad">
+  <form>
+    <h2 class="titleLogin">Login</h2>
+
+
+    <!-- EMAIL --> <ion-input label-placement="floating" label="E-mail:" clearInput="true"
+      placeholder="Digite seu email" value="{{ clearInputs ? '' : emailLogin.value }}" #emailLogin />
+
+    <!-- SENHA --> <ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
+      placeholder="Digite sua senha" value="{{ clearInputs ? '' : passLogin.value }}" #passLogin />
+
+    <!-- BOTÃO "ENTRAR" --> <ion-button class="btnEntrar" (click)="loginPadrao(emailLogin.value, passLogin.value)">
+      Entrar
+    </ion-button>
+
+    <!-- IR PARA ESCOLHA -->
+    <legend>Não tem um cadastro? <a (click)="goToCadChoice()">Cadastre-se aqui</a></legend>
+  </form>
+
+  <!-- LOGIN COM GOOGLE ***RESOLVER DEPOIS***
+  <h6>OU</h6>
+
+
+<ion-button class="loginGoogle" (click)="loginGoogle()">
+    <ion-thumbnail class="googleIcon">
+      <img src="../../../assets/img/google-icon.png" />
+    </ion-thumbnail>
+    Entrar com o Google
+  </ion-button>
+  -->
+
+</ion-content>
+
+<!-- --------------- PARTE DE ESCOLHA DE CADASTRO --------------- -->
+
+<ion-content class="contentChoose" *ngIf="wantsCad && cadType === '' ">
+  <h2 class="titleEscolha">Que tipo de usuário você é?</h2>
+
+  <!-- ESCOLHA DE PF --> <ion-button class="btnEscolha" (click)="chooseCad(true)">
+    Sou uma PESSOA interessada em praticar esportes!
+  </ion-button>
+
+  <!-- ESCOLHA DE PJ --> <ion-button class="btnEscolha" (click)="chooseCad(false)">
+    Sou uma EMPRESA interessada em oferecer esportes!
+  </ion-button>
+
+  <!-- VOLTAR PARA LOGIN --> <ion-button (click)="goToCadChoice()">Voltar</ion-button>
+</ion-content>
+
+
+<!-- --------------- PARTES DE CADASTRO --------------- -->
+
+<!-- CADASTRO DE PF -->
+<ion-content class="contentCadPF" *ngIf="cadType === 'PF' ">
+  <form class="formCad">
+    <h2 class="titleCad">Cadastro de Usuário</h2>
+
+    <!-- EMAIL--><ion-input label-placement="floating" label="E-mail:" clearInput="true" placeholder="Digite seu email"
+      value="{{ clearInputs ? '' : emailCadUser.value }}" #emailCadUser />
+
+    <!-- SENHA --><ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
+      placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCadUser.value }}" #passCadUser />
+
+    <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
+      type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePassUser.value }}"
+      #rePassUser />
+
+    <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
+      (click)="cadUser(emailCadUser.value, passCadUser.value, rePassUser.value)">
+      Cadastrar
+    </ion-button>
+  </form>
+  <ion-button (click)="cadType = '' ">Voltar</ion-button>
+</ion-content>
+
+
+<!-- CADASTRO DE PJ -->
+<ion-content class="contentCadPJ" *ngIf="cadType === 'PJ' ">
+  <form class="formCad">
+    <h2 class="titleCad">Cadastro de Empresa</h2>
+
+    <!-- EMAIL --><ion-input label-placement="floating" label="E-mail:" clearInput="true" placeholder="Digite seu email"
+      value="{{ clearInputs ? '' : emailCadEmpresa.value }}" #emailCadEmpresa />
+
+    <!-- SENHA --> <ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
+      placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCadEmpresa.value }}" #passCadEmpresa />
+
+    <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
+      type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePassEmpresa.value }}"
+      #rePassEmpresa />
+
+    <!-- BOTÃO CADASTRAR --><ion-button class="btnCad" (click)="
+          cadEmpresa(emailCadEmpresa.value,passCadEmpresa.value,rePassEmpresa.value)">
+      Cadastrar Empresa
+    </ion-button>
+  </form>
+  <ion-button (click)="cadType = '' ">Voltar</ion-button>
+</ion-content>

@@ -1,13 +1,38 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>perfil</ion-title>
+    <ion-title>Seu perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- ▼ MENU COM BOTÃO DE LOGOUT, EDITAR PERFIL E MODO ESCURO ▼ -->
+  <ion-buttons>
+    <ion-button>
+      <ion-icon name="settings-sharp"></ion-icon>
+      Opções
+    </ion-button>
+  </ion-buttons>
+  <!-- ▼ FOTO DE PERFIL ▼ -->
+  <img
+    src="https://ionicframework.com/docs/img/demos/card-media.png"
+    class="fotoPerfil"
+  />
+
+  <!-- ▼ NOME COMPLETO DO USUÁRIO ▼ -->
+  <h3>Nome completo do usuário</h3>
+  <!-- ▼ APELIDO(OPCIONAL) ▼ -->
+  <h4>Apelido(Opcional)</h4>
+  <!-- ▼ BOTÃO QUE EXPANDE O RESTANTE DAS INFOS ▼ -->
+  <ion-button>Ver informações completas</ion-button>
+
+  <!-- ▼ INÍCIO DA SESSÃO DE FOTOS ▼ -->
+
+  <h3>Fotos Salvas</h3>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" (click)="add()"><ion-icon name="add"></ion-icon></ion-col>
+      <ion-col *ngFor="let p of produtos" size="4">{{p.n}}</ion-col>
+      
+    </ion-row>
+  </ion-grid>
 </ion-content>

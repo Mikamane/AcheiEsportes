@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "achei--esportes": {
+      "hosting": {
+        "app": [
+          "achei--esportes"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "achei--esportes"
+  }
+}
