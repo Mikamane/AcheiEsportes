@@ -14,6 +14,7 @@ export class PerfilPage implements OnInit {
 
   constructor(private sessionService: SessionDataService, private firestore: Firestore) { }
 
+  
   ngOnInit() {
   }
 
