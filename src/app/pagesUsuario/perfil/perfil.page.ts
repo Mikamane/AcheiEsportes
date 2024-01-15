@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDataService } from 'src/app/Services/session-data.service';
+import { collection, doc, setDoc, Firestore, getDoc, query, where, } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-perfil',
@@ -8,10 +9,14 @@ import { SessionDataService } from 'src/app/Services/session-data.service';
 })
 export class PerfilPage implements OnInit {
   produtos: any = [];
-  isOpen = false
-  constructor(private sessionService: SessionDataService) { }
+  isMenuOpen = false;
+  isModalOpen = false;
 
-  ngOnInit() { }
+  constructor(private sessionService: SessionDataService, private firestore: Firestore) { }
+
+  ngOnInit() {
+  }
+
 
   add() {
     this.produtos = [
@@ -22,15 +27,23 @@ export class PerfilPage implements OnInit {
     ];
   }
 
+
+  /* Função para deslogar, limpando os dados do storage e mudando a variavel de login */
   async sair() {
-    this.openPop()
+    this.openMenu()
     await this.sessionService.clear();
     this.sessionService.dadosSessao.email = '';
     this.sessionService.dadosSessao.privilege = '';
     this.sessionService.setMyVariable(0);
   }
 
-  openPop() {
-    this.isOpen = !this.isOpen
+
+  /* Funções relacionadas a abrir o menu e o modal */
+  openMenu() {
+    this.isMenuOpen = !this.isMenuOpen
+  }
+
+  openModal() {
+    this.isModalOpen = !this.isModalOpen
   }
 }

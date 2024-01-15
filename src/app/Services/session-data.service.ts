@@ -12,6 +12,7 @@ export class SessionDataService {
     privilege: '',
   };
 
+
   private myVariableSource = new BehaviorSubject<any>(0);
   myVariable$ = this.myVariableSource.asObservable();
 

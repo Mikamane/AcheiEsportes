@@ -22,8 +22,8 @@ export class FormLoginComponent implements OnInit {
 
   constructor(private sessionService: SessionDataService, private auth: Auth, private firestore: Firestore) { }
 
-  ngOnInit() { 
-    
+  ngOnInit() {
+
   }
 
 
@@ -83,8 +83,8 @@ export class FormLoginComponent implements OnInit {
 
         /* Cadastrar no Firestore */
         const User = {
-          emailDB: email,
-          passDB: pass,
+          email: email,
+          password: pass,
           nivelAcesso: 'PF',
         }
         const document = doc(collection(this.firestore, 'Usuarios'), email);
@@ -132,8 +132,8 @@ export class FormLoginComponent implements OnInit {
 
         /* Cadastrar no Firestore */
         const User = {
-          emailDB: email,
-          passDB: pass,
+          email: email,
+          password: pass,
           nivelAcesso: 'PJ',
         }
         const document = doc(collection(this.firestore, 'Usuarios'), email);
@@ -182,6 +182,7 @@ export class FormLoginComponent implements OnInit {
       /* Armazenar na sessão */
       await this.sessionService.set('email', email);
       await this.sessionService.set('privilege', docSnap.data()['nivelAcesso']);
+
     }
   }
 
@@ -198,5 +199,31 @@ export class FormLoginComponent implements OnInit {
     }
   }
 
+
+  /* private convertDate(date: string): string {
+    const parts = date.split('-');
+    return `${parts[2]}-${parts[1]}-${parts[0]}`;
+  }
+
+  private calculateAge(birthDate: string): number {
+    const today = new Date();
+    const birthDateObject = new Date(birthDate);
+
+    let years = today.getFullYear() - birthDateObject.getFullYear();
+    let months = today.getMonth() - birthDateObject.getMonth();
+    let days = today.getDate() - birthDateObject.getDate();
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (days < 0) {
+      months--;
+      days += 31;
+    }
+
+    return years + months / 12 + days / 365.25;
+  } */
 
 }

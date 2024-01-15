@@ -2,11 +2,11 @@
   <ion-toolbar>
     <ion-title>Seu perfil</ion-title>
     <!-- ▼ BOTÃO DO MENU DE LOGOUT, EDITAR PERFIL E MODO ESCURO ▼ -->
-    <ion-button id="popover-button" (click)="openPop()" class="opcoes">
+    <ion-button id="popover-button" (click)="openMenu()" class="opcoes">
       <ion-icon name="settings-outline"></ion-icon>
     </ion-button>
     <!-- Itens do menu -->
-    <ion-popover trigger="popover-button" [isOpen]="isOpen" [dismissOnSelect]="false">
+    <ion-popover trigger="popover-button" [isOpen]="isMenuOpen" [dismissOnSelect]="false">
       <ng-template>
         <ion-content class="boxPop">
 
@@ -34,15 +34,15 @@
 </ion-header>
 
 <ion-content>
-  <div>
+  <div class="infoPerfil">
     <!-- ▼ FOTO DE PERFIL ▼ -->
     <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="fotoPerfil" />
-    <!-- ▼ NOME COMPLETO DO USUÁRIO ▼ -->
+    <ion-chip>Nível de acesso: </ion-chip>
     <h3>Nome completo do usuário</h3>
-    <!-- ▼ APELIDO(OPCIONAL) ▼ -->
+    <h4>23 anos</h4>
     <h4>Apelido(Opcional)</h4>
     <!-- ▼ BOTÃO QUE EXPANDE O RESTANTE DAS INFOS ▼ -->
-    <button class="moreInfo">Ver informações completas</button>
+    <button class="moreInfo" (click)="openModal()">Ver informações completas</button>
   </div>
   <!-- ▼ INÍCIO DA SESSÃO DE FOTOS ▼ -->
 
@@ -55,3 +55,47 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="end">
+          <ion-button (click)="openModal()" class="fecharModal">Fechar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="personalInfo">
+        <h4>Informações pessoais</h4>
+        <ion-item class="itemModal">
+          <label class="labelModal">Nome completo:</label>
+          <ion-input class="inputModal" readonly="true" value="Nome completo do usuário"></ion-input>
+        </ion-item>
+
+        <ion-item class="itemModal">
+          <label class="labelModal">Apelido (opcional):</label>
+          <ion-input class="inputModal" readonly="true" value="ApelidodoUsuário"></ion-input>
+        </ion-item>
+
+        <ion-item class="itemModal">
+          <label class="labelModal">Data de nascimento:</label>
+          <ion-input class="inputModal" type="date" readonly="true" value="2000-10-08"></ion-input>
+        </ion-item>
+        <!-- -------------------------------------------------------------------------------------- -->
+        <h4>Dados cadastrais</h4>
+        <ion-item class="itemModal">
+          <label class="labelModal">Email:</label>
+          <ion-input class="inputModal" readonly="true" value="emaildousuario@gmail.com"></ion-input>
+        </ion-item>
+
+        <ion-item class="itemModal">
+          <label class="labelModal">RG:</label>
+          <ion-input class="inputModal" readonly="true" value="Avaliação pendente"></ion-input>
+        </ion-item>
+      </div>
+
+    </ion-content>
+  </ng-template>
+</ion-modal>
