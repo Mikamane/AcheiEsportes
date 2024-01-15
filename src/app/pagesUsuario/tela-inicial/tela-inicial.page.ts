@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SessionDataService } from 'src/app/Services/session-data.service';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -7,12 +6,8 @@ import { SessionDataService } from 'src/app/Services/session-data.service';
   styleUrls: ['./tela-inicial.page.scss'],
 })
 export class TelaInicialPage implements OnInit {
-  constructor(private sessionService: SessionDataService) {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  async sair() {
-    await this.sessionService.clear();
-    this.sessionService.setMyVariable(0);
-  }
 }

@@ -18,9 +18,78 @@ ion-title {
   letter-spacing: 1px;
 }
 
+ion-content {
+  padding: 0;
+  margin: 0;
+}
+
 /* ----------------------- Botão de Opções ----------------------- */
 
+.opcoes {
+  position: absolute;
+  z-index: 9999;
+  top: 5%;
+  right: -2%;
+  --background: rgba(128, 128, 128, 0.2);
+  clip-path: circle();
+  color: black;
+  font-family: 'Roboto Flex', sans-serif;
+  font-size: 1.4rem;
+  margin: 0;
+  padding: 0;
+}
+
+ion-icon {
+  --ionicon-stroke-width: 30px;
+}
+
+ion-popover {
+  --width: 280px;
+}
+
+.listMenu {
+  padding: 0;
+}
+
+.menuPop {
+  padding: 10px 0 10px 10px;
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: black;
+  border-bottom: 1px solid gray;
+}
+
+.itemMenu {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.sair {
+  color: var(--vermelho);
+  --background: rgba(255, 215, 215, 0.2);
+}
+
+.iconMenu {
+  position: absolute;
+  right: 5%;
+  font-size: 2rem;
+  --ionicon-stroke-width: 30px;
+}
+
 /* ----------------------- Foto de perfil, Nome e Apelido ----------------------- */
+
+div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .fotoPerfil {
   clip-path: circle();
@@ -28,11 +97,62 @@ ion-title {
   object-position: center;
   min-width: 250px;
   height: 250px;
+  margin-top: 20px;
+}
+
+h3 {
+  width: 95%;
+  text-align: center;
+  margin: 10px 0 0 0;
+  padding: 0;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+h4 {
+  width: 95%;
+  text-align: center;
+  margin: 5px 0 0 0;
+  padding: 0;
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 /* ----------------------- Botão de informações completas ----------------------- */
+.moreInfo {
+  background-color: rgba(214, 214, 214, 0.35);
+  color: var(--azulEscuro);
+  width: 80%;
+  padding: 10px 5px;
+  margin-top: 18px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  font-weight: 500;
+  text-underline-offset: 3px;
+}
 
 /* ----------------------- Sessão de fotos ----------------------- */
+h5 {
+  width: 95%;
+  margin: 20px 10px 10px;
+  padding: 5px 0 0 0;
+  font-family: 'Roboto Flex', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-top: 1px solid black;
+}
+
+ion-grid {
+  width: 95%;
+  margin: 10px;
+}
+
 ion-col {
   background-color: #135d54;
   border: solid 1px #fff;
