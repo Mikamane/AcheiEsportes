@@ -2,7 +2,6 @@
 font-family: 'Montserrat', sans-serif;
 font-family: 'Roboto Flex', sans-serif; */
 
-
 /* ----------------------- Header "Seu Perfil" ----------------------- */
 ion-toolbar {
   --background: var(--azul);
@@ -33,7 +32,7 @@ ion-content {
   --background: rgba(128, 128, 128, 0.2);
   clip-path: circle();
   color: black;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
   font-size: 1.4rem;
   margin: 0;
   padding: 0;
@@ -101,11 +100,11 @@ ion-popover {
 }
 
 .infoPerfil h3 {
-  width: 95%;
+  width: 90%;
   text-align: center;
   margin: 10px 0 0 0;
   padding: 0;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
   font-weight: 800;
   letter-spacing: 1px;
 }
@@ -115,7 +114,9 @@ ion-popover {
   text-align: center;
   margin: 5px 0 0 0;
   padding: 0;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 1.1rem;
+  font-style: oblique;
   font-weight: 400;
   letter-spacing: 1px;
 }
@@ -129,7 +130,7 @@ ion-popover {
   margin-top: 18px;
   border-radius: 10px;
   font-size: 1.1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   font-weight: 500;
@@ -141,7 +142,7 @@ h5 {
   width: 95%;
   margin: 20px 10px 10px;
   padding: 5px 0 0 0;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: 1px;
@@ -167,8 +168,62 @@ ion-col {
 }
 
 /* ----------------------- Apenas o modal ----------------------- */
+
+.botoesModal {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
 .fecharModal {
   color: white;
+  --background: rgba(255, 0, 0, 0.5);
+  font-weight: 600;
+  font-size: 0.78rem;
+  height: 10px;
+  --border-radius: 5px;
+  --padding-start: 7px;
+  --padding-end: 7px;
+  --padding-top: 5px;
+  --padding-bottom: 5px;
+}
+
+.botaoEdit {
+  --background: rgba(0, 0, 0, 0.2);
+  color: white;
+  width: max-content;
+  height: 10px;
+  font-size: 1rem;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: space-between;
+  --border-radius: 5px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+}
+
+.iconEdit {
+  font-size: 1.6rem;
+  margin-left: 5px;
+}
+
+.confirmEdit {
+  --background: rgba(0, 255, 42, 0.5);
+  color: white;
+  width: max-content;
+  height: 10px;
+  font-size: 1rem;
+  text-transform: capitalize;
+  display: flex;
+  justify-content: space-between;
+  --border-radius: 5px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
 }
 
 .personalInfo h4 {
@@ -176,7 +231,7 @@ ion-col {
   text-align: center;
   margin: 0 0 20px;
   padding: 8px;
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
   font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: 1px;
@@ -194,15 +249,35 @@ ion-col {
 }
 
 .labelModal {
-  font-family: 'Roboto Flex', sans-serif;
+  font-family: "Roboto Flex", sans-serif;
   color: black;
   font-weight: 600;
   font-size: 1.2rem;
+  display: flex;
 }
 
 .inputModal {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: var(--azulEscuro);
   font-size: 1.1rem;
   font-weight: 400;
+  border-radius: 5px;
+  background-color: rgba(122, 122, 122, 0.2);
+  margin-bottom: 10px;
+  --padding-start: 12px;
+}
+
+.inputModalMod {
+  font-family: "Montserrat", sans-serif;
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 400;
+  border-radius: 5px;
+  background-color: rgba(92, 162, 241, 0.2);
+  margin-bottom: 10px;
+  --padding-start: 12px;
+}
+
+legend{
+  color: red;
 }

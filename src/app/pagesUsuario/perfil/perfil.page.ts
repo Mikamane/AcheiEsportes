@@ -1,6 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDataService } from 'src/app/Services/session-data.service';
-import { collection, doc, setDoc, Firestore, getDoc, query, where, updateDoc, getDocs } from '@angular/fire/firestore';
+import {
+  collection,
+  doc,
+  setDoc,
+  Firestore,
+  getDoc,
+  query,
+  where,
+  updateDoc,
+  getDocs,
+} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-perfil',
@@ -12,15 +22,16 @@ export class PerfilPage implements OnInit {
   dadosUser: any = {};
   isMenuOpen = false;
   isModalOpen = false;
-  readOnly = true
+  readOnly = true;
 
-  constructor(private sessionService: SessionDataService, private firestore: Firestore) { }
-
+  constructor(
+    private sessionService: SessionDataService,
+    private firestore: Firestore
+  ) {}
 
   ngOnInit() {
-    this.listarDados()
+    this.listarDados();
   }
-
 
   add() {
     this.produtos = [
@@ -31,16 +42,16 @@ export class PerfilPage implements OnInit {
     ];
   }
 
-
-
-
   /* Função que busca os dados do usuário no BD e joga pro objeto declarado acima, que então mostra os dados na página */
   async listarDados() {
-    let email = this.sessionService.get('email')
-    const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+    let emailSessao = await this.sessionService.get('email');
+    const userQuery = query(
+      collection(this.firestore, 'Usuarios'),
+      where('email', '==', `${emailSessao}`)
+    );
     const querySnapshot = await getDocs(userQuery);
-    querySnapshot.forEach((doc) => {
-      let idade = this.calculateAge(doc.data()['dataNasc'])
+    querySnapshot.forEach((doc: any) => {
+      let idade = this.calculateAge(doc.data()['dataNasc']);
       this.dadosUser = {
         id: doc.id,
         nome: doc.data()['nome'],
@@ -49,15 +60,13 @@ export class PerfilPage implements OnInit {
         idade: idade.toFixed(0),
         email: doc.data()['email'],
         nivelAcesso: doc.data()['nivelAcesso'],
-      }
-      console.log(doc.id) //Continuar daqui 10:00 - 16/01/2024
+      };
     });
-    console.log(this.dadosUser.nome)
-
   }
 
   editarOn() {
-    this.readOnly = !this.readOnly
+    this.readOnly = !this.readOnly;
+    this.listarDados();
   }
 
   async editarDados() {
@@ -65,33 +74,35 @@ export class PerfilPage implements OnInit {
       nome: this.dadosUser.nome,
       apelido: this.dadosUser.apelido,
       dataNasc: this.dadosUser.dataNasc,
+    };
+
+    if (dadosEdit.nome === '' || dadosEdit.dataNasc === '') {
+      console.log('Preencha os campos com "*"');
+    } else {
+      console.log('Nome:' + dadosEdit.nome);
+      let id = await this.sessionService.get('id');
+      const document = doc(collection(this.firestore, 'Usuarios'), id);
+      updateDoc(document, dadosEdit);
+        this.editarOn();
+
     }
-    let email = this.sessionService.get('email')
-    const docRef = doc(this.firestore, "Usuarios", await email);
-    updateDoc(docRef, dadosEdit);
-    this.listarDados()
-    this.editarOn()
-
   }
-
 
   /* Função para deslogar, limpando os dados do storage e mudando a variavel de login */
   async sair() {
-    this.openMenu()
+    this.openMenu();
     await this.sessionService.clear();
     this.sessionService.setMyVariable(0);
   }
 
-
   /* Funções relacionadas a abrir o menu e o modal */
   openMenu() {
-    this.isMenuOpen = !this.isMenuOpen
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
   openModal() {
-    this.isModalOpen = !this.isModalOpen
+    this.isModalOpen = !this.isModalOpen;
   }
-
 
   /* Funções relacionada à troca do formato BR para o americano, e o calculo de idade */
 

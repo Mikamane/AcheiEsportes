@@ -2,3 +2,12 @@
 font-family: 'Montserrat', sans-serif;
 font-family: 'Roboto Flex', sans-serif; */
 
+ion-tab-bar {
+  --background: var(--azulEscuro);
+}
+
+ion-tab-button {
+  --color: var(--branco);
+  --color-selected: var(--verde);
+  --ripple-color: var(--branco);
+}

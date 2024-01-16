@@ -32,9 +32,8 @@
     <!-- ▼ FOTO DE PERFIL ▼ -->
     <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="fotoPerfil" />
     <ion-chip>Nível de acesso: {{dadosUser.nivelAcesso}}</ion-chip>
-    <h3>{{dadosUser.nome}}</h3>
-    <h4>{{dadosUser.idade}} anos</h4>
-    <h4>{{dadosUser.apelido}}</h4>
+    <h3>{{dadosUser.nome+', ' + dadosUser.idade + ' anos'}}</h3>
+    <h4 *ngIf="dadosUser.apelido != ''"> Apelido:{{dadosUser.apelido}}</h4>
     <!-- ▼ BOTÃO QUE EXPANDE O RESTANTE DAS INFOS ▼ -->
     <button class="moreInfo" (click)="openModal()">Ver informações completas</button>
   </div>
@@ -53,43 +52,53 @@
 
 <ion-modal [isOpen]="isModalOpen">
   <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="end">
 
-          <ion-button (click)="editarOn()">Editar Informações
-            <ion-icon class="iconMenu" name="create-outline"></ion-icon>
+    <ion-header *ngIf="readOnly === false">
+      <ion-toolbar >
+        <nav class="botoesModal">
+          <ion-button class="confirmEdit" (click)="editarDados()"> Confirmar mudanças</ion-button>
+          
+          <ion-button class="fecharModal" (click)="editarOn()"> Cancelar</ion-button>
+      </nav>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-header *ngIf="readOnly === true">
+      <ion-toolbar>
+        <nav class="botoesModal">
+          <ion-button class="botaoEdit" (click)="editarOn()">Editar Informações
+            <ion-icon class="iconEdit" name="create-outline"></ion-icon>
           </ion-button>
 
           <ion-button (click)="openModal()" class="fecharModal">Fechar</ion-button>
-        </ion-buttons>
+        </nav>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <div class="personalInfo">
         <h4>Informações pessoais</h4>
         <ion-item class="itemModal">
-          <label class="labelModal">Nome completo:</label>
-          <ion-input #nome (change)="dadosUser.nome = nome.value" class="inputModal" readonly="{{readOnly}}"
-            value="{{dadosUser.nome}}"></ion-input>
+          <label class="labelModal">Nome completo <legend *ngIf="!readOnly">*</legend> :</label>
+          <ion-input #nome (change)="dadosUser.nome = nome.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" readonly="{{readOnly}}"
+            value="{{dadosUser.nome}}" [required]="true"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
           <label class="labelModal">Apelido (opcional):</label>
-          <ion-input #apelido (change)="dadosUser.apelido = apelido.value" class="inputModal" readonly="{{readOnly}}"
-            value="{{dadosUser.apelido}}"></ion-input>
+          <ion-input #apelido (change)="dadosUser.apelido = apelido.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" readonly="{{readOnly}}"
+            value="{{dadosUser.apelido}}" [required]="true"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
-          <label class="labelModal">Data de nascimento:</label>
-          <ion-input #dataNasc (change)="dadosUser.dataNasc = dataNasc.value" class="inputModal" type="date"
-            readonly="{{readOnly}}" value="{{dadosUser.dataNasc}}"></ion-input>
+          <label class="labelModal">Data de nascimento <legend *ngIf="!readOnly">*</legend> :</label>
+          <ion-input #dataNasc (change)="dadosUser.dataNasc = dataNasc.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" type="date"
+            readonly="{{readOnly}}" value="{{dadosUser.dataNasc}}" [required]="true"></ion-input>
         </ion-item>
         <!-- -------------------------------------------------------------------------------------- -->
         <h4>Dados cadastrais</h4>
         <ion-item class="itemModal">
           <label class="labelModal">Email:</label>
-          <ion-input class="inputModal" readonly="true" value="{{dadosUser.email}}"></ion-input>
+          <ion-input class="inputModal" readonly="true" value="{{dadosUser.email}}" [required]="true"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
@@ -97,7 +106,6 @@
           <ion-input class="inputModal" readonly="true" value="Avaliação pendente"></ion-input>
         </ion-item>
       </div>
-      <ion-button *ngIf="readOnly === false" (click)="editarDados()"> Editar</ion-button>
     </ion-content>
   </ng-template>
 </ion-modal>
