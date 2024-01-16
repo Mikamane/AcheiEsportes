@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDataService } from 'src/app/Services/session-data.service';
-import { collection, doc, setDoc, Firestore, getDoc, query, where, } from '@angular/fire/firestore';
+import { collection, doc, setDoc, Firestore, getDoc, query, where, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-perfil',
@@ -9,9 +9,10 @@ import { collection, doc, setDoc, Firestore, getDoc, query, where, } from '@angu
 })
 export class PerfilPage implements OnInit {
   produtos: any = [];
-  dadosUser: any = [];
+  dadosUser: any = {};
   isMenuOpen = false;
   isModalOpen = false;
+  readOnly = true
 
   constructor(private sessionService: SessionDataService, private firestore: Firestore) { }
 
@@ -33,23 +34,40 @@ export class PerfilPage implements OnInit {
 
 
 
+  /* Função que busca os dados do usuário no BD e joga pro objeto declarado acima, que então mostra os dados na página */
   async listarDados() {
     let email = this.sessionService.get('email')
     const docRef = doc(this.firestore, "Usuarios", await email);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      let dataConverted = this.convertDate(docSnap.data()['dataNasc'])
-      let idade = this.calculateAge(dataConverted)
-      this.dadosUser = [
-        ...this.dadosUser, {
-          nome: docSnap.data()['nome'],
-          apelido: docSnap.data()['apelido'],
-          dataNasc: dataConverted,
-          idade: idade,
-          email: docSnap.data()['email'],
-          nivelAcesso: docSnap.data()['nivelAcesso'],
-        },]
+      let idade = this.calculateAge(docSnap.data()['dataNasc'])
+      this.dadosUser = {
+        nome: docSnap.data()['nome'],
+        apelido: docSnap.data()['apelido'],
+        dataNasc: docSnap.data()['dataNasc'],
+        idade: idade.toFixed(0),
+        email: docSnap.data()['email'],
+        nivelAcesso: docSnap.data()['nivelAcesso'],
+      }
     }
+  }
+
+  editarOn() {
+    this.readOnly = !this.readOnly
+  }
+
+  async editarDados() {
+    let dadosEdit: any = {
+      nome: this.dadosUser.nome,
+      apelido: this.dadosUser.apelido,
+      dataNasc: this.dadosUser.dataNasc,
+    }
+    let email = this.sessionService.get('email')
+    const docRef = doc(this.firestore, "Usuarios", await email);
+    updateDoc(docRef, dadosEdit);
+    this.listarDados()
+    this.editarOn()
+
   }
 
 
@@ -70,10 +88,15 @@ export class PerfilPage implements OnInit {
     this.isModalOpen = !this.isModalOpen
   }
 
+
+  /* Funções relacionada à troca do formato BR para o americano, e o calculo de idade */
+
+  /* 
+  INÚTIL ATUALMENTE
   private convertDate(date: string): string {
     const parts = date.split('-');
     return `${parts[2]}-${parts[1]}-${parts[0]}`;
-  }
+  } */
 
   private calculateAge(birthDate: string): number {
     const today = new Date();
