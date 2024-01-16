@@ -34,13 +34,13 @@
 </ion-header>
 
 <ion-content>
-  <div class="infoPerfil">
+  <div class="infoPerfil" *ngFor="let d of dadosUser">
     <!-- ▼ FOTO DE PERFIL ▼ -->
     <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="fotoPerfil" />
-    <ion-chip>Nível de acesso: </ion-chip>
-    <h3>Nome completo do usuário</h3>
-    <h4>23 anos</h4>
-    <h4>Apelido(Opcional)</h4>
+    <ion-chip>Nível de acesso: {{d.nivelAcesso}}</ion-chip>
+    <h3>{{d.nome}}</h3>
+    <h4>{{d.idade.toFixed(0)}} anos</h4>
+    <h4>{{d.apelido}}</h4>
     <!-- ▼ BOTÃO QUE EXPANDE O RESTANTE DAS INFOS ▼ -->
     <button class="moreInfo" (click)="openModal()">Ver informações completas</button>
   </div>
@@ -67,27 +67,27 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div class="personalInfo">
+      <div class="personalInfo" *ngFor="let d of dadosUser">
         <h4>Informações pessoais</h4>
         <ion-item class="itemModal">
           <label class="labelModal">Nome completo:</label>
-          <ion-input class="inputModal" readonly="true" value="Nome completo do usuário"></ion-input>
+          <ion-input class="inputModal" readonly="true" value="{{d.nome}}"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
           <label class="labelModal">Apelido (opcional):</label>
-          <ion-input class="inputModal" readonly="true" value="ApelidodoUsuário"></ion-input>
+          <ion-input class="inputModal" readonly="true" value="{{d.apelido}}"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
           <label class="labelModal">Data de nascimento:</label>
-          <ion-input class="inputModal" type="date" readonly="true" value="2000-10-08"></ion-input>
+          <ion-input class="inputModal" type="date" readonly="true" value="{{d.dataNasc}}"></ion-input>
         </ion-item>
         <!-- -------------------------------------------------------------------------------------- -->
         <h4>Dados cadastrais</h4>
         <ion-item class="itemModal">
           <label class="labelModal">Email:</label>
-          <ion-input class="inputModal" readonly="true" value="emaildousuario@gmail.com"></ion-input>
+          <ion-input class="inputModal" readonly="true" value="{{d.email}}"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">

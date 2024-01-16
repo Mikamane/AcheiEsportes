@@ -67,6 +67,10 @@ export class FormLoginComponent implements OnInit {
       if (docSnap.exists()) {
         console.log('Usuário já existe')
       } else {
+        /* Mandar alguns dados para o ionic Storage */
+        await this.sessionService.set('email', email);
+        await this.sessionService.set('privilege', 'PF');
+
         console.log('Usuário cadastrado com sucesso!');
         /* Cadastrar no Auth */
         createUserWithEmailAndPassword(this.auth, email, pass)
@@ -94,10 +98,6 @@ export class FormLoginComponent implements OnInit {
         this.clearInputs = true;
 
      /* Ir para o aplicativo */ this.sessionService.setMyVariable(1);
-
-        /* Mandar alguns dados para o ionic Storage */
-        await this.sessionService.set('email', email);
-        await this.sessionService.set('privilege', 'PF');
       }
     }
   }
@@ -116,6 +116,10 @@ export class FormLoginComponent implements OnInit {
       if (docSnap.exists()) {
         console.log('Empresa já cadastrada')
       } else {
+        /* Mandar alguns dados para o ionic Storage */
+        await this.sessionService.set('email', email);
+        await this.sessionService.set('privilege', 'PJ');
+
         console.log('Empresa cadastrada com sucesso!');
         /* Cadastrar no Auth */
         createUserWithEmailAndPassword(this.auth, email, pass)
@@ -143,23 +147,19 @@ export class FormLoginComponent implements OnInit {
         this.clearInputs = true;
 
      /* Ir para o aplicativo */ this.sessionService.setMyVariable(1);
-
-        /* Mandar alguns dados para o ionic Storage */
-        await this.sessionService.set('email', email);
-        await this.sessionService.set('privilege', 'PJ');
       }
     }
   }
 
 
-  /* Função para login com o Google */
-  async loginGoogle() {
+  /* Função para login com o Google 
+   async loginGoogle() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(this.auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         console.log(credential);
-        /* result.user.displayName; */
+        result.user.displayName; 
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -169,7 +169,7 @@ export class FormLoginComponent implements OnInit {
         console.log(errorCode, errorMessage);
         console.log(email, credential);
       });
-  }
+  } */
 
   /* Função que busca no firestore um documento pelo id */
   async buscarBanco(email: any) {
@@ -199,31 +199,5 @@ export class FormLoginComponent implements OnInit {
     }
   }
 
-
-  /* private convertDate(date: string): string {
-    const parts = date.split('-');
-    return `${parts[2]}-${parts[1]}-${parts[0]}`;
-  }
-
-  private calculateAge(birthDate: string): number {
-    const today = new Date();
-    const birthDateObject = new Date(birthDate);
-
-    let years = today.getFullYear() - birthDateObject.getFullYear();
-    let months = today.getMonth() - birthDateObject.getMonth();
-    let days = today.getDate() - birthDateObject.getDate();
-
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-
-    if (days < 0) {
-      months--;
-      days += 31;
-    }
-
-    return years + months / 12 + days / 365.25;
-  } */
 
 }

@@ -7,11 +7,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SessionDataService {
 
-  dadosSessao = {
-    email: '',
-    privilege: '',
-  };
-
 
   private myVariableSource = new BehaviorSubject<any>(0);
   myVariable$ = this.myVariableSource.asObservable();

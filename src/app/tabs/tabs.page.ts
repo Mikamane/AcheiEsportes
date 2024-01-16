@@ -22,9 +22,8 @@ export class TabsPage implements OnInit {
 
   /* Verifica se há algum dado no storage quando a página é reiniciada */
   async ionViewWillEnter(event: ViewWillEnter) {
-    this.sessionService.dadosSessao.email = await this.sessionService.get('email');
-    this.sessionService.dadosSessao.privilege = await this.sessionService.get('privilege');
-    if (this.sessionService.dadosSessao.email != null) {
+    let email = await this.sessionService.get('email');
+    if (email != null) {
       this.isLogged = true;
     } else {
       this.isLogged = false;
