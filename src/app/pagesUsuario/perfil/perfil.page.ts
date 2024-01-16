@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDataService } from 'src/app/Services/session-data.service';
-import { collection, doc, setDoc, Firestore, getDoc, query, where, updateDoc } from '@angular/fire/firestore';
+import { collection, doc, setDoc, Firestore, getDoc, query, where, updateDoc, getDocs } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-perfil',
@@ -37,19 +37,23 @@ export class PerfilPage implements OnInit {
   /* Função que busca os dados do usuário no BD e joga pro objeto declarado acima, que então mostra os dados na página */
   async listarDados() {
     let email = this.sessionService.get('email')
-    const docRef = doc(this.firestore, "Usuarios", await email);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      let idade = this.calculateAge(docSnap.data()['dataNasc'])
+    const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+    const querySnapshot = await getDocs(userQuery);
+    querySnapshot.forEach((doc) => {
+      let idade = this.calculateAge(doc.data()['dataNasc'])
       this.dadosUser = {
-        nome: docSnap.data()['nome'],
-        apelido: docSnap.data()['apelido'],
-        dataNasc: docSnap.data()['dataNasc'],
+        id: doc.id,
+        nome: doc.data()['nome'],
+        apelido: doc.data()['apelido'],
+        dataNasc: doc.data()['dataNasc'],
         idade: idade.toFixed(0),
-        email: docSnap.data()['email'],
-        nivelAcesso: docSnap.data()['nivelAcesso'],
+        email: doc.data()['email'],
+        nivelAcesso: doc.data()['nivelAcesso'],
       }
-    }
+      console.log(doc.id) //Continuar daqui 10:00 - 16/01/2024
+    });
+    console.log(this.dadosUser.nome)
+
   }
 
   editarOn() {

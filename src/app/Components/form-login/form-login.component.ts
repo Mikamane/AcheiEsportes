@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from '@angular/fire/auth';
-import { collection, doc, setDoc, Firestore, getDoc, query, where, } from '@angular/fire/firestore';
+import { collection, doc, setDoc, Firestore, getDoc, query, where, getDocs, } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-form-login',
@@ -19,6 +19,7 @@ export class FormLoginComponent implements OnInit {
   clearInputs: boolean = false;
   wantsCad: boolean = false
   cadType: String = ''
+  dadosUsuario: any = {}
 
   constructor(private sessionService: SessionDataService, private auth: Auth, private firestore: Firestore) { }
 
@@ -37,7 +38,11 @@ export class FormLoginComponent implements OnInit {
           const user = userCredential.user;
           console.log(user);
           if (user) {
-            this.buscarBanco(email)
+            this.buscarUsuario(email)
+            /* Limpar os campos dos formularios */
+            this.clearInputs = true;
+            /* Ir para o aplicativo */
+            this.sessionService.setMyVariable(1);
           }
         })
         .catch((error) => {
@@ -61,16 +66,13 @@ export class FormLoginComponent implements OnInit {
     } else if (pass != rePass) {
       console.log('As senha precisam ser iguais!');
     } else {
-      const docRef = doc(this.firestore, "Usuarios", email);
-      const docSnap = await getDoc(docRef);
+      const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+      const querySnapshot = await getDocs(userQuery);
 
-      if (docSnap.exists()) {
+      if (!querySnapshot.empty) {
         console.log('Usuário já existe')
       } else {
         /* Mandar alguns dados para o ionic Storage */
-        await this.sessionService.set('email', email);
-        await this.sessionService.set('privilege', 'PF');
-
         console.log('Usuário cadastrado com sucesso!');
         /* Cadastrar no Auth */
         createUserWithEmailAndPassword(this.auth, email, pass)
@@ -88,16 +90,15 @@ export class FormLoginComponent implements OnInit {
         /* Cadastrar no Firestore */
         const User = {
           email: email,
-          password: pass,
           nivelAcesso: 'PF',
         }
-        const document = doc(collection(this.firestore, 'Usuarios'), email);
+        const document = doc(collection(this.firestore, 'Usuarios'));
         setDoc(document, User);
-
+        this.buscarUsuario(email)
         /* Limpar os campos dos formularios */
         this.clearInputs = true;
-
-     /* Ir para o aplicativo */ this.sessionService.setMyVariable(1);
+        /* Ir para o aplicativo */
+        this.sessionService.setMyVariable(1);
       }
     }
   }
@@ -110,16 +111,12 @@ export class FormLoginComponent implements OnInit {
     } else if (pass != rePass) {
       console.log('As senha precisam ser iguais!');
     } else {
-      const docRef = doc(this.firestore, "Usuarios", email);
-      const docSnap = await getDoc(docRef);
+      const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+      const querySnapshot = await getDocs(userQuery);
 
-      if (docSnap.exists()) {
+      if (!querySnapshot.empty) {
         console.log('Empresa já cadastrada')
       } else {
-        /* Mandar alguns dados para o ionic Storage */
-        await this.sessionService.set('email', email);
-        await this.sessionService.set('privilege', 'PJ');
-
         console.log('Empresa cadastrada com sucesso!');
         /* Cadastrar no Auth */
         createUserWithEmailAndPassword(this.auth, email, pass)
@@ -137,16 +134,15 @@ export class FormLoginComponent implements OnInit {
         /* Cadastrar no Firestore */
         const User = {
           email: email,
-          password: pass,
           nivelAcesso: 'PJ',
         }
-        const document = doc(collection(this.firestore, 'Usuarios'), email);
+        const document = doc(collection(this.firestore, 'Usuarios'));
         setDoc(document, User);
-
+        this.buscarUsuario(email)
         /* Limpar os campos dos formularios */
         this.clearInputs = true;
-
-     /* Ir para o aplicativo */ this.sessionService.setMyVariable(1);
+        /* Ir para o aplicativo */
+        this.sessionService.setMyVariable(1);
       }
     }
   }
@@ -171,19 +167,23 @@ export class FormLoginComponent implements OnInit {
       });
   } */
 
-  /* Função que busca no firestore um documento pelo id */
-  async buscarBanco(email: any) {
-    const docRef = doc(this.firestore, "Usuarios", email);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      /* Limpar os campos dos formularios */
-      this.clearInputs = true;
-        /* Ir para o aplicativo */ this.sessionService.setMyVariable(1);
-      /* Armazenar na sessão */
-      await this.sessionService.set('email', email);
-      await this.sessionService.set('privilege', docSnap.data()['nivelAcesso']);
-
-    }
+  /* Função que busca no firestore um documento pelo email cadastrado */
+  async buscarUsuario(email: any) {
+    /* const docRef = doc(this.firestore, "Usuarios", email);
+    const docSnap = await getDoc(docRef); */
+    const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+    const querySnapshot = await getDocs(userQuery);
+    querySnapshot.forEach((doc) => {
+      this.dadosUsuario = {
+        email: doc.data()['email'],
+        privilege: doc.data()['nivelAcesso'],
+        id: doc.id
+      }
+    });
+    /* Armazenar na sessão */
+    await this.sessionService.set('email', this.dadosUsuario.email);
+    await this.sessionService.set('privilege', this.dadosUsuario.privilege);
+    await this.sessionService.set('id', this.dadosUsuario.id);
   }
 
   /* Funções para a troca de componentes. Entre Login, escolha de cadastro e formulário de cadastro */
