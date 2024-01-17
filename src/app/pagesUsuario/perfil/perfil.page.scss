@@ -138,6 +138,10 @@ ion-popover {
 }
 
 /* ----------------------- Sessão de fotos ----------------------- */
+#inputFile {
+  display: none;
+}
+
 h5 {
   width: 95%;
   margin: 20px 10px 10px;
@@ -167,6 +171,68 @@ ion-col {
   font-weight: 700;
 }
 
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.modalImg {
+  --height: 50%;
+  --border-radius: 5px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.modalImg::part(backdrop) {
+  background: rgb(0, 0, 0);
+  opacity: 1;
+}
+
+.modalImg::part(content) {
+  background: #ffffff00;
+}
+
+.ngTemplateImgModal,
+.contentImgModal {
+  --background: rgba(255, 0, 0, 0);
+}
+
+.divImgModal {
+  background-color: #135d5400;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.botoesImg {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.iconTrash {
+  color: var(--vermelho);
+  font-size: 1.2rem;
+}
+
+.btnImg {
+  --background: rgba(0, 0, 0, 0.4);
+  --box-shadow: 0px 0px 0px 0px transparent;
+  width: fit-content;
+  --border-radius: 5px;
+}
+
+.imgModal {
+  width: 100%;
+  height: auto;
+}
+
+
 /* ----------------------- Apenas o modal ----------------------- */
 
 .botoesModal {
@@ -178,7 +244,7 @@ ion-col {
 
 .fecharModal {
   color: white;
-  --background: rgba(255, 0, 0, 0.5);
+  --background: rgba(255, 0, 0, 0.7);
   font-weight: 600;
   font-size: 0.78rem;
   height: 10px;
@@ -278,6 +344,6 @@ ion-col {
   --padding-start: 12px;
 }
 
-legend{
+legend {
   color: red;
 }

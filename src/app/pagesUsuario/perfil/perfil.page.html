@@ -39,27 +39,50 @@
   </div>
   <!-- ▼ INÍCIO DA SESSÃO DE FOTOS ▼ -->
 
-  <h5>Fotos Salvas</h5>
+  <h5>Fotos</h5>
   <ion-grid>
     <ion-row>
-      <ion-col size="4" (click)="add()"><ion-icon name="add"></ion-icon></ion-col>
-      <ion-col *ngFor="let p of produtos" size="4">{{p.n}}</ion-col>
+      <input type="file" name="" id="inputFile" (change)="cadastrarFoto($event)">
+      <ion-col size="4" (click)="ativarInput()"><ion-icon name="add"></ion-icon></ion-col>
+
+      <ion-col *ngFor="let i of imagensPerfil" size="4">
+        <img id="{{i.imgName}}" src="{{i.imgURL}}" alt="">
+        <!-- Modal da foto em tela cheia -->
+        <ion-modal #modal trigger="{{i.imgName}}" class="modalImg">
+          <ng-template class="ngTemplateImgModal">
+            <ion-content class="contentImgModal">
+              <div class="divImgModal">
+                <nav class="botoesImg">
+                  <ion-button class="btnImg" (click)="presentAlert(i.imgName, modal)">
+                    <ion-icon class="iconTrash" name="trash"></ion-icon>
+                  </ion-button>
+
+                  <ion-button class="btnImg" (click)="modal.dismiss()">
+                    <ion-icon name="close-outline"></ion-icon> Fechar
+                  </ion-button>
+                </nav>
+                <img src="{{i.imgURL}}" alt="" class="imgModal">
+              </div>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </ion-col>
 
     </ion-row>
   </ion-grid>
 </ion-content>
 
-
+<!-- Modal das informações completas -->
 <ion-modal [isOpen]="isModalOpen">
   <ng-template>
 
     <ion-header *ngIf="readOnly === false">
-      <ion-toolbar >
+      <ion-toolbar>
         <nav class="botoesModal">
           <ion-button class="confirmEdit" (click)="editarDados()"> Confirmar mudanças</ion-button>
-          
+
           <ion-button class="fecharModal" (click)="editarOn()"> Cancelar</ion-button>
-      </nav>
+        </nav>
       </ion-toolbar>
     </ion-header>
 
@@ -79,20 +102,22 @@
         <h4>Informações pessoais</h4>
         <ion-item class="itemModal">
           <label class="labelModal">Nome completo <legend *ngIf="!readOnly">*</legend> :</label>
-          <ion-input #nome (change)="dadosUser.nome = nome.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" readonly="{{readOnly}}"
-            value="{{dadosUser.nome}}" [required]="true"></ion-input>
+          <ion-input #nome (change)="dadosUser.nome = nome.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}"
+            readonly="{{readOnly}}" value="{{dadosUser.nome}}" [required]="true"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
           <label class="labelModal">Apelido (opcional):</label>
-          <ion-input #apelido (change)="dadosUser.apelido = apelido.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" readonly="{{readOnly}}"
-            value="{{dadosUser.apelido}}" [required]="true"></ion-input>
+          <ion-input #apelido (change)="dadosUser.apelido = apelido.value"
+            class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" readonly="{{readOnly}}" value="{{dadosUser.apelido}}"
+            [required]="true"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
           <label class="labelModal">Data de nascimento <legend *ngIf="!readOnly">*</legend> :</label>
-          <ion-input #dataNasc (change)="dadosUser.dataNasc = dataNasc.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" type="date"
-            readonly="{{readOnly}}" value="{{dadosUser.dataNasc}}" [required]="true"></ion-input>
+          <ion-input #dataNasc (change)="dadosUser.dataNasc = dataNasc.value"
+            class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" type="date" readonly="{{readOnly}}"
+            value="{{dadosUser.dataNasc}}" [required]="true"></ion-input>
         </ion-item>
         <!-- -------------------------------------------------------------------------------------- -->
         <h4>Dados cadastrais</h4>

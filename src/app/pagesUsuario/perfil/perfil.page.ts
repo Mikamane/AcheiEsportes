@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDataService } from 'src/app/Services/session-data.service';
 import {
-  collection,
-  doc,
-  setDoc,
-  Firestore,
-  getDoc,
-  query,
-  where,
-  updateDoc,
-  getDocs,
+  collection, doc, setDoc, Firestore, getDoc, query, where, updateDoc, getDocs,
 } from '@angular/fire/firestore';
+import { uploadBytes, ref, Storage, listAll, getDownloadURL, deleteObject } from '@angular/fire/storage';
+import { v4 as uuidv4 } from 'uuid';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-perfil',
@@ -18,29 +13,104 @@ import {
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
-  produtos: any = [];
+  imagensPerfil: any = [];
   dadosUser: any = {};
   isMenuOpen = false;
   isModalOpen = false;
   readOnly = true;
 
+
+
   constructor(
     private sessionService: SessionDataService,
-    private firestore: Firestore
-  ) {}
+    private firestore: Firestore,
+    private storage: Storage,
+    private alertController: AlertController
+  ) { }
 
   ngOnInit() {
     this.listarDados();
+    this.listarFotos();
   }
 
-  add() {
-    this.produtos = [
-      ...this.produtos,
-      {
-        n: 2,
-      },
-    ];
+
+
+  async listarFotos() {
+    let idUsuario = await this.sessionService.get('id');
+    const listRef = ref(this.storage, `fotosUsuarios/${idUsuario}`);
+    listAll(listRef)
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          getDownloadURL(itemRef).then((res) => {
+            this.imagensPerfil = [
+              ...this.imagensPerfil, {
+                imgName: itemRef.name,
+                imgURL: res
+              }
+            ]
+          });
+        });
+      })
+      .catch((error) => { });
   }
+
+
+  async cadastrarFoto(e: any) {
+    let idUsuario = await this.sessionService.get('id');
+    let foto = e.target.files[0];
+    const newName = uuidv4(foto.name);
+    const imageRef = ref(this.storage, `fotosUsuarios/${idUsuario}/${newName}`);
+    uploadBytes(imageRef, foto);
+    setTimeout(() => {
+      this.imagensPerfil = [];
+      this.listarFotos();
+    }, 500);
+  }
+
+  ativarInput() {
+    document.getElementById('inputFile')?.click();
+  }
+
+
+  async apagarImg(img: any) {
+    let idUsuario = await this.sessionService.get('id');
+    const imageRef = ref(this.storage, `fotosUsuarios/${idUsuario}/${img}`);
+    deleteObject(imageRef).then(() => {
+      setTimeout(() => {
+        this.imagensPerfil = [];
+        this.listarFotos();
+      }, 500);
+    }).catch((error) => {
+      console.log(error)
+    });
+
+  }
+
+  async presentAlert(img: any, modal: any) {
+    const alert = await this.alertController.create({
+      header: 'Deseja apagar esta imagem?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('cancelou');
+          },
+        },
+        {
+          text: 'Confirmar',
+          role: 'confirm',
+          handler: () => {
+            this.apagarImg(img);
+            modal.dismiss()
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
 
   /* Função que busca os dados do usuário no BD e joga pro objeto declarado acima, que então mostra os dados na página */
   async listarDados() {
@@ -83,7 +153,7 @@ export class PerfilPage implements OnInit {
       let id = await this.sessionService.get('id');
       const document = doc(collection(this.firestore, 'Usuarios'), id);
       updateDoc(document, dadosEdit);
-        this.editarOn();
+      this.editarOn();
 
     }
   }

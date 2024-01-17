@@ -24,7 +24,7 @@ export class FormLoginComponent implements OnInit {
   constructor(private sessionService: SessionDataService, private auth: Auth, private firestore: Firestore) { }
 
   ngOnInit() {
-
+    
   }
 
 
