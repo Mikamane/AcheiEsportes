@@ -64,7 +64,7 @@ export class PerfilPage implements OnInit {
     setTimeout(() => {
       this.imagensPerfil = [];
       this.listarFotos();
-    }, 500);
+    }, 2000);
   }
 
   ativarInput() {
@@ -79,7 +79,7 @@ export class PerfilPage implements OnInit {
       setTimeout(() => {
         this.imagensPerfil = [];
         this.listarFotos();
-      }, 500);
+      }, 2000);
     }).catch((error) => {
       console.log(error)
     });
