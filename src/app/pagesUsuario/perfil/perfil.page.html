@@ -1,6 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Seu perfil</ion-title>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
     <!-- ▼ BOTÃO DO MENU DE LOGOUT, EDITAR PERFIL E MODO ESCURO ▼ -->
     <ion-button id="popover-button" (click)="openMenu()" class="opcoes">
       <ion-icon name="settings-outline"></ion-icon>
@@ -134,3 +135,4 @@
     </ion-content>
   </ng-template>
 </ion-modal>
+

@@ -1,9 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDataService } from 'src/app/Services/session-data.service';
 import {
-  collection, doc, setDoc, Firestore, getDoc, query, where, updateDoc, getDocs,
+  collection,
+  doc,
+  setDoc,
+  Firestore,
+  getDoc,
+  query,
+  where,
+  updateDoc,
+  getDocs,
 } from '@angular/fire/firestore';
-import { uploadBytes, ref, Storage, listAll, getDownloadURL, deleteObject } from '@angular/fire/storage';
+import {
+  uploadBytes,
+  ref,
+  Storage,
+  listAll,
+  getDownloadURL,
+  deleteObject,
+} from '@angular/fire/storage';
 import { v4 as uuidv4 } from 'uuid';
 import { AlertController } from '@ionic/angular';
 
@@ -18,24 +33,25 @@ export class PerfilPage implements OnInit {
   isMenuOpen = false;
   isModalOpen = false;
   readOnly = true;
-
-
+  loading = false;
 
   constructor(
     private sessionService: SessionDataService,
     private firestore: Firestore,
     private storage: Storage,
     private alertController: AlertController
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.listarDados();
     this.listarFotos();
   }
 
-
-
   async listarFotos() {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
     let idUsuario = await this.sessionService.get('id');
     const listRef = ref(this.storage, `fotosUsuarios/${idUsuario}`);
     listAll(listRef)
@@ -43,19 +59,23 @@ export class PerfilPage implements OnInit {
         res.items.forEach((itemRef) => {
           getDownloadURL(itemRef).then((res) => {
             this.imagensPerfil = [
-              ...this.imagensPerfil, {
+              ...this.imagensPerfil,
+              {
                 imgName: itemRef.name,
-                imgURL: res
-              }
-            ]
+                imgURL: res,
+              },
+            ];
           });
         });
       })
-      .catch((error) => { });
+      .catch((error) => {});
   }
 
-
   async cadastrarFoto(e: any) {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
     let idUsuario = await this.sessionService.get('id');
     let foto = e.target.files[0];
     const newName = uuidv4(foto.name);
@@ -71,19 +91,23 @@ export class PerfilPage implements OnInit {
     document.getElementById('inputFile')?.click();
   }
 
-
   async apagarImg(img: any) {
+    this.loading = true;
+    setTimeout(() => {
+      this.loading = false;
+    }, 3000);
     let idUsuario = await this.sessionService.get('id');
     const imageRef = ref(this.storage, `fotosUsuarios/${idUsuario}/${img}`);
-    deleteObject(imageRef).then(() => {
-      setTimeout(() => {
-        this.imagensPerfil = [];
-        this.listarFotos();
-      }, 2000);
-    }).catch((error) => {
-      console.log(error)
-    });
-
+    deleteObject(imageRef)
+      .then(() => {
+        setTimeout(() => {
+          this.imagensPerfil = [];
+          this.listarFotos();
+        }, 2000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async presentAlert(img: any, modal: any) {
@@ -102,7 +126,7 @@ export class PerfilPage implements OnInit {
           role: 'confirm',
           handler: () => {
             this.apagarImg(img);
-            modal.dismiss()
+            modal.dismiss();
           },
         },
       ],
@@ -110,7 +134,6 @@ export class PerfilPage implements OnInit {
 
     await alert.present();
   }
-
 
   /* Função que busca os dados do usuário no BD e joga pro objeto declarado acima, que então mostra os dados na página */
   async listarDados() {
@@ -154,7 +177,6 @@ export class PerfilPage implements OnInit {
       const document = doc(collection(this.firestore, 'Usuarios'), id);
       updateDoc(document, dadosEdit);
       this.editarOn();
-
     }
   }
 
