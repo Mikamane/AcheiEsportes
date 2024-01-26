@@ -5,24 +5,28 @@
 
 <!-- --------------- PARTE DE LOGIN --------------- -->
 <ion-content class="contentLogin" *ngIf="!wantsCad">
-  <form>
+  <img class="background" src="../../../assets/img/background-telaLogin.svg" alt="">
+
+  <div class="main">
+
     <h2 class="titleLogin">Login</h2>
 
+    <form>
 
-    <!-- EMAIL --> <ion-input label-placement="floating" label="E-mail:" clearInput="true"
-      placeholder="Digite seu email" value="{{ clearInputs ? '' : emailLogin.value }}" #emailLogin />
+      <!-- EMAIL --> <ion-input label-placement="floating" label="E-mail:" clearInput="true"
+        placeholder="Digite seu email" value="{{ clearInputs ? '' : emailLogin.value }}" #emailLogin />
 
-    <!-- SENHA --> <ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
-      placeholder="Digite sua senha" value="{{ clearInputs ? '' : passLogin.value }}" #passLogin />
+      <!-- SENHA --> <ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
+        placeholder="Digite sua senha" value="{{ clearInputs ? '' : passLogin.value }}" #passLogin />
 
-    <!-- BOTÃO "ENTRAR" --> <ion-button class="btnEntrar" (click)="loginPadrao(emailLogin.value, passLogin.value)">
-      Entrar
-    </ion-button>
+      <!-- BOTÃO "ENTRAR" --> <ion-button class="btnEntrar" (click)="loginPadrao(emailLogin.value, passLogin.value)">
+        Entrar
+      </ion-button>
 
-    <!-- IR PARA ESCOLHA -->
-    <legend>Não tem um cadastro? <a (click)="goToCadChoice()">Cadastre-se aqui</a></legend>
-  </form>
-
+      <!-- IR PARA ESCOLHA -->
+      <legend>Não tem um cadastro? <a (click)="goToCadChoice()">Cadastre-se aqui</a></legend>
+    </form>
+  </div>
   <!-- LOGIN COM GOOGLE ***RESOLVER DEPOIS***
   <h6>OU</h6>
 
@@ -40,17 +44,26 @@
 <!-- --------------- PARTE DE ESCOLHA DE CADASTRO --------------- -->
 
 <ion-content class="contentChoose" *ngIf="wantsCad && cadType === '' ">
-  <h2 class="titleEscolha">Que tipo de usuário você é?</h2>
+  <img class="background" src="../../../assets/img/background-telaLogin.svg" alt="">
 
-  <!-- ESCOLHA DE PF --> <ion-button class="btnEscolha" (click)="chooseCad(true)">
-    Sou uma PESSOA interessada em praticar esportes!
-  </ion-button>
+  <div class="main">
 
-  <!-- ESCOLHA DE PJ --> <ion-button class="btnEscolha" (click)="chooseCad(false)">
-    Sou uma EMPRESA interessada em oferecer esportes!
-  </ion-button>
+    <h2 class="titleLogin titleEscolha">Que usuário você é?</h2>
 
-  <!-- VOLTAR PARA LOGIN --> <ion-button (click)="goToCadChoice()">Voltar</ion-button>
+    <form>
+      <!-- ESCOLHA DE PF --> <ion-button class="btnEscolha" (click)="chooseCad(true)">
+        <p>
+          Sou uma <b>PESSOA</b> interessada em praticar esportes!</p>
+      </ion-button>
+
+      <!-- ESCOLHA DE PJ --> <ion-button class="btnEscolha" (click)="chooseCad(false)">
+        <p>
+        Sou uma <b>EMPRESA</b> interessada em oferecer esportes!</p>
+      </ion-button>
+
+      <!-- VOLTAR PARA LOGIN --> <ion-button class="btnVoltar" (click)="goToCadChoice()">Voltar</ion-button>
+    </form>
+  </div>
 </ion-content>
 
 
@@ -58,47 +71,61 @@
 
 <!-- CADASTRO DE PF -->
 <ion-content class="contentCadPF" *ngIf="cadType === 'PF' ">
-  <form class="formCad">
-    <h2 class="titleCad">Cadastro de Usuário</h2>
+  <img class="background" src="../../../assets/img/background-telaLogin.svg" alt="">
 
-    <!-- EMAIL--><ion-input label-placement="floating" label="E-mail:" clearInput="true" placeholder="Digite seu email"
-      value="{{ clearInputs ? '' : emailCadUser.value }}" #emailCadUser />
+  <div class="main">
 
-    <!-- SENHA --><ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
-      placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCadUser.value }}" #passCadUser />
+    <h2 class="titleLogin titleEscolha">Cadastro de Usuário</h2>
 
-    <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
-      type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePassUser.value }}"
-      #rePassUser />
+    <form>
+      <!-- EMAIL--><ion-input label-placement="floating" label="E-mail:" clearInput="true"
+        placeholder="Digite seu email" value="{{ clearInputs ? '' : emailCadUser.value }}" #emailCadUser />
 
-    <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
-      (click)="cadUser(emailCadUser.value, passCadUser.value, rePassUser.value)">
-      Cadastrar
-    </ion-button>
-  </form>
-  <ion-button (click)="cadType = '' ">Voltar</ion-button>
+      <!-- SENHA --><ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
+        placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCadUser.value }}" #passCadUser />
+
+      <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
+        type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePassUser.value }}"
+        #rePassUser />
+
+      <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
+        (click)="cadUser(emailCadUser.value, passCadUser.value, rePassUser.value)">
+        Cadastrar
+      </ion-button>
+      <ion-button class="btnVoltar" (click)="cadType = '' ">Voltar</ion-button>
+    </form>
+  </div>
+
 </ion-content>
 
 
 <!-- CADASTRO DE PJ -->
 <ion-content class="contentCadPJ" *ngIf="cadType === 'PJ' ">
-  <form class="formCad">
-    <h2 class="titleCad">Cadastro de Empresa</h2>
+  <img class="background" src="../../../assets/img/background-telaLogin.svg" alt="">
+  <div class="main">
 
-    <!-- EMAIL --><ion-input label-placement="floating" label="E-mail:" clearInput="true" placeholder="Digite seu email"
-      value="{{ clearInputs ? '' : emailCadEmpresa.value }}" #emailCadEmpresa />
+    <h2 class="titleLogin titleEscolha">Cadastro de Empresa</h2>
 
-    <!-- SENHA --> <ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
-      placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCadEmpresa.value }}" #passCadEmpresa />
+    <form class="formCad">
 
-    <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
-      type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePassEmpresa.value }}"
-      #rePassEmpresa />
 
-    <!-- BOTÃO CADASTRAR --><ion-button class="btnCad" (click)="
+      <!-- EMAIL --><ion-input label-placement="floating" label="E-mail:" clearInput="true"
+        placeholder="Digite seu email" value="{{ clearInputs ? '' : emailCadEmpresa.value }}" #emailCadEmpresa />
+
+      <!-- SENHA --> <ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
+        placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCadEmpresa.value }}" #passCadEmpresa />
+
+      <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
+        type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePassEmpresa.value }}"
+        #rePassEmpresa />
+
+      <!-- BOTÃO CADASTRAR --><ion-button class="btnCad" (click)="
           cadEmpresa(emailCadEmpresa.value,passCadEmpresa.value,rePassEmpresa.value)">
-      Cadastrar Empresa
-    </ion-button>
-  </form>
-  <ion-button (click)="cadType = '' ">Voltar</ion-button>
+        Cadastrar Empresa
+      </ion-button>
+      <ion-button class="btnVoltar" (click)="cadType = '' ">Voltar</ion-button>
+    </form>
+  </div>
 </ion-content>
+
+<footer>© 2024 Achei! Esportes Ltda</footer>
