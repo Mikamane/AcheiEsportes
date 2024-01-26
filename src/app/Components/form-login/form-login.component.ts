@@ -7,7 +7,16 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from '@angular/fire/auth';
-import { collection, doc, setDoc, Firestore, getDoc, query, where, getDocs, } from '@angular/fire/firestore';
+import {
+  collection,
+  doc,
+  setDoc,
+  Firestore,
+  getDoc,
+  query,
+  where,
+  getDocs,
+} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-form-login',
@@ -17,65 +26,108 @@ import { collection, doc, setDoc, Firestore, getDoc, query, where, getDocs, } fr
 export class FormLoginComponent implements OnInit {
   /* Declarações de variaveis */
   clearInputs: boolean = false;
-  wantsCad: boolean = false
-  cadType: String = ''
-  dadosUsuario: any = {}
+  wantsCad: boolean = false;
+  loading = false;
+  cadType: String = '';
+  continueCad = false;
+  logoClass = 'visible';
+  dadosUsuario: any = {};
+  cadInicial: any = {};
 
-  constructor(private sessionService: SessionDataService, private auth: Auth, private firestore: Firestore) { }
+  constructor(
+    private sessionService: SessionDataService,
+    private auth: Auth,
+    private firestore: Firestore
+  ) {}
 
-  ngOnInit() {
-    
-  }
-
+  ngOnInit() {}
 
   /* Função para login com email e senha */
   async loginPadrao(email: any, pass: any) {
     if (email == '' || pass == '') {
-      console.log('Preencha todos os campos!')
+      console.log('Preencha todos os campos!');
     } else {
       signInWithEmailAndPassword(this.auth, email, pass)
         .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
           if (user) {
-            this.buscarUsuario(email)
-            /* Limpar os campos dos formularios */
-            this.clearInputs = true;
-            /* Ir para o aplicativo */
-            this.sessionService.setMyVariable(1);
+            this.buscarUsuario(email);
+            this.loading = true;
+
+            setTimeout(() => {
+              this.loading = false;
+              /* Ir para o aplicativo */
+              this.sessionService.setMyVariable(1);
+              /* Limpar os campos dos formularios */
+              this.clearInputs = true;
+            }, 1000);
           }
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode, errorMessage);
-          console.log('Usuário incorreto ou inexistente')
+          console.log('Usuário incorreto ou inexistente');
         });
     }
   }
 
-
-
-
-
   /* Função para cadastro de pessoas físicas */
-  async cadUser(email: any, pass: any, rePass: any) {
-    /*  Verificações de campo vazio */
-    if (email == '' || pass == '' || rePass == '') {
-      console.log('Preencha todos os campos!');
-    } else if (pass != rePass) {
-      console.log('As senha precisam ser iguais!');
+  prosseguirCad(email: any, pass: any, rePass: any) {
+    if (this.continueCad == false) {
+      if (email == '' || pass == '' || rePass == '') {
+        console.log('Preencha todos os campos!');
+      } else if (pass != rePass) {
+        console.log('As senha precisam ser iguais!');
+      } else {
+        this.cadInicial = {
+          email: email,
+          senha: pass,
+        };
+
+        this.continueCad = !this.continueCad;
+
+        if (this.logoClass === 'visible') {
+          this.logoClass = 'hidden';
+        } else {
+          this.logoClass = 'visible';
+        }
+      }
     } else {
-      const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+      this.continueCad = !this.continueCad;
+
+      if (this.logoClass === 'visible') {
+        this.logoClass = 'hidden';
+      } else {
+        this.logoClass = 'visible';
+      }
+    }
+  }
+
+  async cadUser(nome: any, sobrenome: any, apelido: any, dataNasc: any) {
+    this.loading = true;
+    /*  Verificações de campo vazio */
+    if (nome == '' || sobrenome == '' || dataNasc == '') {
+      console.log('Preencha todos os campos!');
+    } else {
+      const userQuery = query(
+        collection(this.firestore, 'Usuarios'),
+        where('email', '==', `${this.cadInicial.email}`)
+      );
       const querySnapshot = await getDocs(userQuery);
 
       if (!querySnapshot.empty) {
-        console.log('Usuário já existe')
+        console.log('Usuário já existe');
       } else {
         /* Mandar alguns dados para o ionic Storage */
         console.log('Usuário cadastrado com sucesso!');
         /* Cadastrar no Auth */
-        createUserWithEmailAndPassword(this.auth, email, pass)
+        createUserWithEmailAndPassword(
+          this.auth,
+          this.cadInicial.email,
+          this.cadInicial.senha
+        )
           .then((userCredential) => {
             // Signed up
             const user = userCredential.user;
@@ -89,37 +141,52 @@ export class FormLoginComponent implements OnInit {
 
         /* Cadastrar no Firestore */
         const User = {
-          email: email,
+          email: this.cadInicial.email,
           nivelAcesso: 'PF',
-        }
+          nome: nome,
+          sobrenome: sobrenome,
+          apelido: apelido,
+          dataNasc: dataNasc,
+        };
         const document = doc(collection(this.firestore, 'Usuarios'));
         setDoc(document, User);
-        this.buscarUsuario(email)
-        /* Limpar os campos dos formularios */
-        this.clearInputs = true;
-        /* Ir para o aplicativo */
-        this.sessionService.setMyVariable(1);
+        this.buscarUsuario(User.email);
+
+        setTimeout(() => {
+          this.cadInicial = {};
+          this.loading = false;
+          /* Ir para o aplicativo */
+          this.sessionService.setMyVariable(1);
+          /* Limpar os campos dos formularios */
+          this.clearInputs = true;
+        }, 1000);
       }
     }
   }
 
   /* Função para cadastro de empresas */
-  async cadEmpresa(email: any, pass: any, rePass: any) {
+  async cadEmpresa(nome: any, nomeLocal: any, cnpj: any, tel: any) {
+    this.loading = true;
     /*  Verificações de campo vazio */
-    if (email == '' || pass == '' || rePass == '') {
+    if (nome == '' || nomeLocal == '' || cnpj == '') {
       console.log('Preencha todos os campos!');
-    } else if (pass != rePass) {
-      console.log('As senha precisam ser iguais!');
     } else {
-      const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+      const userQuery = query(
+        collection(this.firestore, 'Usuarios'),
+        where('email', '==', `${this.cadInicial.email}`)
+      );
       const querySnapshot = await getDocs(userQuery);
 
       if (!querySnapshot.empty) {
-        console.log('Empresa já cadastrada')
+        console.log('Empresa já cadastrada');
       } else {
         console.log('Empresa cadastrada com sucesso!');
         /* Cadastrar no Auth */
-        createUserWithEmailAndPassword(this.auth, email, pass)
+        createUserWithEmailAndPassword(
+          this.auth,
+          this.cadInicial.email,
+          this.cadInicial.senha
+        )
           .then((userCredential) => {
             // Signed up
             const user = userCredential.user;
@@ -133,20 +200,28 @@ export class FormLoginComponent implements OnInit {
 
         /* Cadastrar no Firestore */
         const User = {
-          email: email,
+          email: this.cadInicial.email,
           nivelAcesso: 'PJ',
-        }
+          nomeEmpresa: nome,
+          nomeLocal: nomeLocal,
+          CNPJ: cnpj,
+          telefone: tel,
+        };
         const document = doc(collection(this.firestore, 'Usuarios'));
         setDoc(document, User);
-        this.buscarUsuario(email)
+        this.buscarUsuario(this.cadInicial.email);
         /* Limpar os campos dos formularios */
-        this.clearInputs = true;
-        /* Ir para o aplicativo */
-        this.sessionService.setMyVariable(1);
+        setTimeout(() => {
+          this.cadInicial = {};
+          this.loading = false;
+          /* Ir para o aplicativo */
+          this.sessionService.setMyVariable(1);
+          /* Limpar os campos dos formularios */
+          this.clearInputs = true;
+        }, 1000);
       }
     }
   }
-
 
   /* Função para login com o Google 
    async loginGoogle() {
@@ -171,14 +246,17 @@ export class FormLoginComponent implements OnInit {
   async buscarUsuario(email: any) {
     /* const docRef = doc(this.firestore, "Usuarios", email);
     const docSnap = await getDoc(docRef); */
-    const userQuery = query(collection(this.firestore, "Usuarios"), where("email", "==", `${email}`));
+    const userQuery = query(
+      collection(this.firestore, 'Usuarios'),
+      where('email', '==', `${email}`)
+    );
     const querySnapshot = await getDocs(userQuery);
     querySnapshot.forEach((doc) => {
       this.dadosUsuario = {
         email: doc.data()['email'],
         privilege: doc.data()['nivelAcesso'],
-        id: doc.id
-      }
+        id: doc.id,
+      };
     });
     /* Armazenar na sessão */
     await this.sessionService.set('email', this.dadosUsuario.email);
@@ -188,16 +266,14 @@ export class FormLoginComponent implements OnInit {
 
   /* Funções para a troca de componentes. Entre Login, escolha de cadastro e formulário de cadastro */
   goToCadChoice() {
-    this.wantsCad = !this.wantsCad
+    this.wantsCad = !this.wantsCad;
   }
 
   chooseCad(choice: boolean) {
     if (choice) {
-      this.cadType = 'PF'
+      this.cadType = 'PF';
     } else {
-      this.cadType = 'PJ'
+      this.cadType = 'PJ';
     }
   }
-
-
 }

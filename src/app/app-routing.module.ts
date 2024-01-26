@@ -28,6 +28,19 @@ const routes: Routes = [
         (m) => m.TurmasPageModule
       ),
   },
+  {
+    path: 'perfilPJ',
+    loadChildren: () => import('./pagesEmpresa/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'criar',
+    loadChildren: () => import('./pagesEmpresa/criar/criar.module').then( m => m.CriarPageModule)
+  },
+  {
+    path: 'turmas',
+    loadChildren: () => import('./pagesEmpresa/turmas/turmas.module').then( m => m.TurmasPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

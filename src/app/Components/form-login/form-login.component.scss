@@ -13,177 +13,204 @@ Cores tema:
 --branco: #E6E6FA;
 */
 
+ion-progress-bar{
+  position: absolute;
+  z-index: 999999;
+  top: 0;
+}
 
 /* Configurações padrão dos ion-content */
 ion-content {
-    --background: var(--azulEscuro);
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    --padding-top: 210px;
-    --padding-bottom: 0px;
-    --padding-start: 13px;
-    --padding-end: 13px;
-    margin: 0;
+  --background: var(--azulEscuro);
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  --padding-top: 210px;
+  --padding-bottom: 0px;
+  --padding-start: 13px;
+  --padding-end: 13px;
+  margin: 0;
 }
 
 /* Configurações padrão dos ion-button */
 ion-button {
-    --background: var(--verde);
-    color: #000;
-    font-size: 1rem;
-    font-weight: 700;
-    font-size: 1.3rem;
-    text-transform: none;
-    font-family: 'Montserrat', sans-serif;
-    --border-radius: 5px;
-    width: 100%;
-    min-height: 50px;
-    margin: 0;
+  --background: var(--verde);
+  color: #000;
+  font-size: 1rem;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-transform: none;
+  font-family: "Montserrat", sans-serif;
+  --border-radius: 5px;
+  width: 100%;
+  min-height: 50px;
+  margin: 0;
 }
 
 /* logo */
 figure {
-    max-width: 400px;
-    position: absolute;
-    z-index: 9999999;
-    margin: 0;
-    padding: 30px 8px 0;
+  max-width: 400px;
+  position: absolute;
+  z-index: 9999999;
+  margin: 0;
+  padding: 30px 8px 0;
 }
 
-.logo {
-    width: 100%;
-    height: auto;
+.visible {
+  width: 100%;
+  height: auto;
+}
+
+.hidden {
+  display: none;
 }
 
 .background {
-    position: fixed;
-    min-width: 360px;
-    z-index: 1;
-    left: 0;
+  position: fixed;
+  min-width: 360px;
+  z-index: 1;
+  left: 0;
 }
 
 footer {
-    font-family: monospace;
-    position: fixed;
-    font-size: 1rem;
-    width: 100%;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    bottom: 0%;
-    background-color: #090909;
-    color: #ffffff;
+  font-family: monospace;
+  position: fixed;
+  font-size: 1rem;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  bottom: 0%;
+  background-color: #090909;
+  color: #ffffff;
 }
 
 /* ##### Início do form de login ##### */
 
 .main {
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
 }
 
 form {
-    background-color: rgba(0, 0, 0, 0.60);
-    border-radius: 10px;
-    min-height: max-content;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 30px 10px 30px;
-    z-index: 100;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  min-height: max-content;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 30px 10px 30px;
+  z-index: 100;
 }
 
 .titleLogin {
-    z-index: 9999;
-    color: white;
-    width: fit-content;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 0.3rem;
-    font-weight: 500;
-    margin: 0;
-    padding: 0 8px 10px 9px;
-    align-self: center;
+  z-index: 9999;
+  color: white;
+  width: fit-content;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+  font-weight: 500;
+  margin: 0;
+  padding: 0 8px 10px 9px;
+  align-self: center;
 }
 
 ion-input {
-    margin: 5px 0 25px;
-    --background: var(--branco);
-    --padding-start: 10px;
-    --padding-end: 10px;
-    --border-radius: 5px;
+  margin: 5px 0 25px;
+  --background: var(--branco);
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --border-radius: 5px;
 }
 
 .btnEntrar {
-    margin: 0 0 25px 0;
+  margin: 0 0 25px 0;
 }
 
 legend {
-    border: 3px double white;
-    border-radius: 5px;
-    padding: 10px;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.2rem;
-    text-align: center;
-    font-weight: 300;
-    width: 80%;
-    align-self: center;
-    margin-bottom: 10px;
-    box-shadow: 0px 0px 4.41px 0px rgba(255, 255, 255, 0.45);
-    line-height: 30px;
+  border: 3px double white;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 300;
+  width: 80%;
+  align-self: center;
+  margin-bottom: 10px;
+  box-shadow: 0px 0px 4.41px 0px rgba(255, 255, 255, 0.45);
+  line-height: 30px;
 }
 
 a {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    color: var(--laranja);
-    font-weight: 700;
-    letter-spacing: 2px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--laranja);
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
 h6 {
-    text-align: center;
-    width: 100%;
-    font-family: 'Montserrat', sans-serif;
-    color: white;
-    font-size: 1.2rem;
-    padding-bottom: 5px;
-    border-bottom: .1px solid white;
+  text-align: center;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  font-size: 1.2rem;
+  padding-bottom: 5px;
+  border-bottom: 0.1px solid white;
 }
 
 /* ##### Início da escolha de forma de cadastro ##### */
 .titleEscolha {
-    font-size: 1.09rem;
-    width: 100%;
-    text-align: center;
+  font-size: 1.09rem;
+  width: 100%;
+  text-align: center;
 }
 
-
 .btnEscolha {
-    height: 15vh;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: 500;
-    text-wrap: wrap;
-    --background: var(--branco);
-    z-index: 100;
+  height: 15vh;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: 500;
+  text-wrap: wrap;
+  --background: var(--branco);
+  z-index: 100;
 }
 
 .btnVoltar {
-    --background: var(--laranja);
-
+  --background: var(--laranja);
 }
 
 /* ##### Início do cadastro de PF ##### */
 
 .btnCad {
-    margin: 15px 0 10px;
-    z-index: 100;
+  margin: 5px 0 25px;
+  z-index: 100;
+}
+
+.btnCancelar {
+  --background: var(--vermelho);
+  position: fixed;
+  z-index: 100;
+  top: 15%;
+  align-self: center;
+  color: var(--branco);
+  width: max-content;
+}
+
+.titleContinue{
+    position: fixed;
+    top: 5%;
+}
+
+.form2{
+    margin-top: 0;
+    padding-bottom: 0;
 }

@@ -1,10 +1,21 @@
 /* CHAMADA DAS FONTES IMPORTADAS DO GOOGLE ## Import presente no arquivo 'global.scss' ##
 font-family: 'Montserrat', sans-serif;
-font-family: 'Roboto Flex', sans-serif; */
+font-family: 'Roboto Flex', sans-serif; 
+
+Cores tema:
+--azulEscuro: #0E1621;
+--azul: #006FC8;
+--laranja: #FF7F0E;
+--cinza: #C5CAE9;
+--verde: #B5E61D;
+--vermelho: #E1002D;
+--roxo: #483D8B;
+--branco: #E6E6FA;
+*/
 
 /* ----------------------- Header "Seu Perfil" ----------------------- */
 ion-toolbar {
-  --background: var(--azul);
+  --background: var(--azulEscuro);
 }
 
 ion-title {
