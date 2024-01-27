@@ -29,29 +29,29 @@ import { AlertController } from '@ionic/angular';
 })
 export class PerfilPage implements OnInit {
   imagensPerfil: any = [];
+  fotoPerfil: any = {}
   dadosUser: any = {};
   isMenuOpen = false;
   isModalOpen = false;
   readOnly = true;
+  bioReadOnly = true
   loading = false;
 
   constructor(
     private sessionService: SessionDataService,
     private firestore: Firestore,
     private storage: Storage,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+  ) { }
 
   ngOnInit() {
     this.listarDados();
     this.listarFotos();
+    this.listarFotoPerfil();
   }
 
   async listarFotos() {
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
     let idUsuario = await this.sessionService.get('id');
     const listRef = ref(this.storage, `fotosUsuarios/${idUsuario}`);
     listAll(listRef)
@@ -65,45 +65,89 @@ export class PerfilPage implements OnInit {
                 imgURL: res,
               },
             ];
+            setTimeout(() => {
+              this.loading = false;
+            }, 1000);
           });
         });
       })
-      .catch((error) => {});
+      .catch((error) => { });
+  }
+
+  async listarFotoPerfil() {
+    this.loading = true;
+
+    let idUsuario = await this.sessionService.get('id');
+    const listRef = ref(this.storage, `fotosUsuarios/${idUsuario}/FotosPerfil/`);
+    listAll(listRef)
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          getDownloadURL(itemRef).then((res) => {
+            this.fotoPerfil =
+            {
+              imgName: itemRef.name,
+              imgURL: res,
+            },
+
+              setTimeout(() => {
+                this.loading = false;
+              }, 1000);
+          });
+        });
+      })
+      .catch((error) => { });
+  }
+
+  async cadastrarFotoPerfil(e: any) {
+    this.loading = true;
+
+    let idUsuario = await this.sessionService.get('id');
+    let foto = e.target.files[0];
+    /* const newName = uuidv4(foto.name); */
+    const imageRef = ref(this.storage, `fotosUsuarios/${idUsuario}/FotosPerfil/foto1`);
+    uploadBytes(imageRef, foto);
+    this.fotoPerfil = {};
+
+    setTimeout(() => {
+      this.listarFotoPerfil();
+      this.loading = false;
+    }, 1000);
   }
 
   async cadastrarFoto(e: any) {
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
+
     let idUsuario = await this.sessionService.get('id');
     let foto = e.target.files[0];
     const newName = uuidv4(foto.name);
     const imageRef = ref(this.storage, `fotosUsuarios/${idUsuario}/${newName}`);
     uploadBytes(imageRef, foto);
+    this.imagensPerfil = [];
+
     setTimeout(() => {
-      this.imagensPerfil = [];
       this.listarFotos();
-    }, 2000);
+      this.loading = false;
+    }, 1000);
   }
 
+  ativarInput2() {
+    document.getElementById('inputFile2')?.click();
+  }
   ativarInput() {
     document.getElementById('inputFile')?.click();
   }
 
   async apagarImg(img: any) {
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-    }, 3000);
     let idUsuario = await this.sessionService.get('id');
     const imageRef = ref(this.storage, `fotosUsuarios/${idUsuario}/${img}`);
     deleteObject(imageRef)
       .then(() => {
+        this.imagensPerfil = [];
+        this.listarFotos();
         setTimeout(() => {
-          this.imagensPerfil = [];
-          this.listarFotos();
-        }, 2000);
+          this.loading = false;
+        }, 1000);
       })
       .catch((error) => {
         console.log(error);
@@ -148,13 +192,30 @@ export class PerfilPage implements OnInit {
       this.dadosUser = {
         id: doc.id,
         nome: doc.data()['nome'],
+        sobrenome: doc.data()['sobrenome'],
         apelido: doc.data()['apelido'],
+        bio: doc.data()['bio'],
         dataNasc: doc.data()['dataNasc'],
         idade: idade.toFixed(0),
         email: doc.data()['email'],
+        telefone: doc.data()['telefone'],
         nivelAcesso: doc.data()['nivelAcesso'],
       };
     });
+  }
+
+  editarBioOn() {
+    this.bioReadOnly = !this.bioReadOnly
+  }
+
+  async editarBio(bio: any) {
+    this.bioReadOnly = !this.bioReadOnly
+    let dadosEdit: any = {
+      bio: bio,
+    };
+    let id = await this.sessionService.get('id');
+    const document = doc(collection(this.firestore, 'Usuarios'), id);
+    updateDoc(document, dadosEdit);
   }
 
   editarOn() {
@@ -165,14 +226,15 @@ export class PerfilPage implements OnInit {
   async editarDados() {
     let dadosEdit: any = {
       nome: this.dadosUser.nome,
+      sobrenome: this.dadosUser.sobrenome,
       apelido: this.dadosUser.apelido,
+      telefone: this.dadosUser.telefone,
       dataNasc: this.dadosUser.dataNasc,
     };
 
-    if (dadosEdit.nome === '' || dadosEdit.dataNasc === '') {
+    if (dadosEdit.nome === '' || dadosEdit.sobrenome === '' || dadosEdit.dataNasc === '') {
       console.log('Preencha os campos com "*"');
     } else {
-      console.log('Nome:' + dadosEdit.nome);
       let id = await this.sessionService.get('id');
       const document = doc(collection(this.firestore, 'Usuarios'), id);
       updateDoc(document, dadosEdit);

@@ -9,6 +9,7 @@ import { ViewWillEnter } from '@ionic/angular';
 })
 export class TabsPage implements OnInit {
   isLogged: boolean = false;
+  sessionLevel: any = ''
 
   constructor(private sessionService: SessionDataService) {
 
@@ -22,17 +23,19 @@ export class TabsPage implements OnInit {
 
   /* Verifica se há algum dado no storage quando a página é reiniciada */
   async ionViewWillEnter(event: ViewWillEnter) {
-    let email = await this.sessionService.get('email');
-    if (email != null) {
+    let privilege = await this.sessionService.get('privilege');
+    if (privilege != null) {
       this.isLogged = true;
+      this.sessionLevel = privilege
     } else {
       this.isLogged = false;
     }
   }
 
-  doSomethingWhenVariableChanges(newValue: any) {
+  async doSomethingWhenVariableChanges(newValue: any) {
     if (newValue != 0) {
       this.isLogged = true;
+      this.sessionLevel = await this.sessionService.get('privilege');
     }
     else {
       this.isLogged = false;

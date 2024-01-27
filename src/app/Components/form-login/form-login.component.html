@@ -13,11 +13,25 @@
 
     <form>
 
-      <!-- EMAIL --> <ion-input label-placement="floating" label="E-mail:" clearInput="true"
-        placeholder="Digite seu email" value="{{ clearInputs ? '' : emailLogin.value }}" #emailLogin />
+      <!-- EMAIL --> <ion-input 
+      type="email" 
+      placeholder="Digite seu email" 
+      label-placement="stacked"
+      clearInput="true"
+      value="{{ clearInputs ? '' : emailLogin.value }}" 
+      #emailLogin >
+      <ion-label slot="label">Email</ion-label>
+    </ion-input>
 
-      <!-- SENHA --> <ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
-        placeholder="Digite sua senha" value="{{ clearInputs ? '' : passLogin.value }}" #passLogin />
+      <!-- SENHA --> <ion-input 
+      type="password"
+      placeholder="Digite sua senha" 
+      label-placement="stacked" 
+      clearInput="true" 
+      value="{{ clearInputs ? '' : passLogin.value }}" 
+      #passLogin >
+      <ion-label slot="label">Senha</ion-label>
+    </ion-input>
 
       <!-- BOTÃO "ENTRAR" --> <ion-button class="btnEntrar" (click)="loginPadrao(emailLogin.value, passLogin.value)">
         Entrar
@@ -57,7 +71,7 @@
 
       <!-- ESCOLHA DE PJ --> <ion-button class="btnEscolha" (click)="chooseCad(false)">
         <p>
-        Sou uma <b>EMPRESA</b> interessada em oferecer esportes!</p>
+          Sou uma <b>EMPRESA</b> interessada em oferecer esportes!</p>
       </ion-button>
 
       <!-- VOLTAR PARA LOGIN --> <ion-button class="btnVoltar" (click)="goToCadChoice()">Voltar</ion-button>
@@ -75,17 +89,38 @@
 
     <h2 class="titleLogin titleEscolha">Cadastro de Usuário</h2>
 
-    <form >
+    <form>
 
-      <!-- EMAIL--><ion-input label-placement="floating" label="E-mail:" clearInput="true"
-        placeholder="Digite seu email" value="{{ clearInputs ? '' : emailCadUser.value }}" #emailCadUser />
+      <!-- EMAIL--><ion-input 
+      type="email" 
+      placeholder="Digite seu email" 
+      label-placement="stacked" 
+      clearInput="true"
+      value="{{ clearInputs ? '' : emailCadUser.value }}" 
+      #emailCadUser ><ion-label slot="label">Email</ion-label>
+    </ion-input>
+   
+      
+      <!-- SENHA --><ion-input 
+      type="password"
+      placeholder="Digite sua senha" 
+      label-placement="stacked" 
+      clearInput="true" 
+      minlength="8"
+      maxlength="20"
+      value="{{ clearInputs ? '' : passCadUser.value }}" 
+      #passCadUser >
+      <ion-label slot="label">Senha</ion-label>
+      </ion-input>
 
-      <!-- SENHA --><ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
-        placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCadUser.value }}" #passCadUser />
-
-      <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
-        type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePassUser.value }}"
-        #rePassUser />
+      <!-- REPETIR SENHA --><ion-input 
+      type="password" 
+      placeholder="Digite sua senha novamente!" 
+      label-placement="stacked" 
+      clearInput="true"
+      value="{{ clearInputs ? '' : rePassUser.value }}"
+      #rePassUser ><ion-label slot="label">Repita sua senha</ion-label>
+    </ion-input>
 
       <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
         (click)="prosseguirCad(emailCadUser.value, passCadUser.value, rePassUser.value)">
@@ -93,28 +128,48 @@
       </ion-button>
       <ion-button class="btnVoltar" (click)="cadType = '' ">Voltar</ion-button>
     </form>
-</div>
-      <!-- -------------------- CONTINUAÇÃO DE CADASTRO --------------------  -->
-      <div class="main" *ngIf="continueCad">
-        <h2 class="titleLogin titleEscolha titleContinue">Continuação de cadastro</h2>
-      <ion-button class="btnCancelar" (click)="prosseguirCad(1,2,3)"><ion-icon name="close-outline"></ion-icon>Cancelar</ion-button>
-      <form class="form2">
-        <!-- NOME--><ion-input label-placement="floating" label="Nome:" clearInput="true"
-        placeholder="Digite seu nome" value="{{ clearInputs ? '' : nomeCadUser.value }}" #nomeCadUser />
+  </div>
+  <!-- -------------------- CONTINUAÇÃO DE CADASTRO --------------------  -->
+  <div class="main" *ngIf="continueCad">
+    <h2 class="titleLogin titleEscolha titleContinue">Continuação de cadastro</h2>
+    <ion-button class="btnCancelar" (click)="prosseguirCad(1,2,3)"><ion-icon
+        name="close-outline"></ion-icon>Cancelar</ion-button>
+    <form class="form2">
+      <!-- NOME--><ion-input 
+      label-placement="stacked"  
+      clearInput="true" 
+      placeholder="Digite seu nome"
+      value="{{ clearInputs ? '' : nomeCadUser.value }}" 
+      #nomeCadUser ><ion-label slot="label">Nome</ion-label>
+    </ion-input>
 
-        <!-- SOBRENOME --><ion-input label-placement="floating" label="Sobrenome:" clearInput="true"
-          placeholder="Digite seu sobrenome" value="{{ clearInputs ? '' : sobrenomeCadUser.value }}" #sobrenomeCadUser />
+      <!-- SOBRENOME --><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      placeholder="Digite seu sobrenome" 
+      value="{{ clearInputs ? '' : sobrenomeCadUser.value }}" 
+      #sobrenomeCadUser ><ion-label slot="label">Sobrenome</ion-label>
+    </ion-input>
 
-        <!-- APELIDO --><ion-input label-placement="floating" label="Apelido:" clearInput="true"
-         placeholder="Digite seu apelido" value="{{ clearInputs ? '' : apelidoCadUser.value }}"
-          #apelidoCadUser />
+      <!-- APELIDO --><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      placeholder="Digite seu apelido" 
+      value="{{ clearInputs ? '' : apelidoCadUser.value }}" 
+      #apelidoCadUser ><ion-label slot="label">Telefone</ion-label>
+    </ion-input>
 
-          <!-- DATA DE NASCIMENTO --><ion-input label-placement="floating" label="Data de nascimento:" clearInput="true"
-          type="date" placeholder="" value="{{ clearInputs ? '' : dataNascCadUser.value }}"
-          #dataNascCadUser />
+      <!-- DATA DE NASCIMENTO --><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      type="date" 
+      placeholder="" 
+      value="{{ clearInputs ? '' : dataNascCadUser.value }}" 
+      #dataNascCadUser ><ion-label slot="label">Data de nascimento</ion-label>
+    </ion-input>
 
 
-          <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
+      <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
         (click)="cadUser(nomeCadUser.value, sobrenomeCadUser.value, apelidoCadUser.value, dataNascCadUser.value)">
         Cadastrar-se
       </ion-button>
@@ -132,17 +187,33 @@
 
     <h2 class="titleLogin titleEscolha">Cadastro de Empresa</h2>
 
-    <form >
+    <form>
 
-      <!-- EMAIL--><ion-input label-placement="floating" label="E-mail:" clearInput="true"
-        placeholder="Digite seu email" value="{{ clearInputs ? '' : emailCad.value }}" #emailCad />
+      <!-- EMAIL--><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      placeholder="Digite seu email" 
+      value="{{ clearInputs ? '' : emailCad.value }}" 
+      #emailCad ><ion-label slot="label">Email</ion-label>
+    </ion-input>
 
-      <!-- SENHA --><ion-input label-placement="floating" label="Senha:" clearInput="true" type="password"
-        placeholder="Digite sua senha" value="{{ clearInputs ? '' : passCad.value }}" #passCad />
+      <!-- SENHA --><ion-input 
+      label-placement="stacked" 
+      clearInput="true" 
+      type="password"
+      placeholder="Digite sua senha" 
+      value="{{ clearInputs ? '' : passCad.value }}" 
+      #passCad ><ion-label slot="label">Senha</ion-label>
+    </ion-input>
 
-      <!-- REPETIR SENHA --><ion-input label-placement="floating" label="Repita sua senha:" clearInput="true"
-        type="password" placeholder="Digite sua senha novamente!" value="{{ clearInputs ? '' : rePass.value }}"
-        #rePass />
+      <!-- REPETIR SENHA --><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      type="password" 
+      placeholder="Digite sua senha novamente!" 
+      value="{{ clearInputs ? '' : rePass.value }}"
+      #rePass ><ion-label slot="label">Repita sua senha</ion-label>
+    </ion-input>
 
       <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
         (click)="prosseguirCad(emailCad.value, passCad.value, rePass.value)">
@@ -150,28 +221,48 @@
       </ion-button>
       <ion-button class="btnVoltar" (click)="cadType = '' ">Voltar</ion-button>
     </form>
-</div>
-      <!-- -------------------- CONTINUAÇÃO DE CADASTRO --------------------  -->
-      <div class="main" *ngIf="continueCad">
-        <h2 class="titleLogin titleEscolha titleContinue">Continuação de cadastro</h2>
-      <ion-button class="btnCancelar" (click)="prosseguirCad(1,2,3)"><ion-icon name="close-outline"></ion-icon>Cancelar</ion-button>
-      <form class="form2">
-        <!-- NOME--><ion-input label-placement="floating" label="Nome da empresa:" clearInput="true"
-        placeholder="Digite seu nome" value="{{ clearInputs ? '' : nomeEmpresaCad.value }}" #nomeEmpresaCad />
+  </div>
+  <!-- -------------------- CONTINUAÇÃO DE CADASTRO --------------------  -->
+  <div class="main" *ngIf="continueCad">
+    <h2 class="titleLogin titleEscolha titleContinue">Continuação de cadastro</h2>
+    <ion-button class="btnCancelar" (click)="prosseguirCad(1,2,3)"><ion-icon
+        name="close-outline"></ion-icon>Cancelar</ion-button>
+    <form class="form2">
+      <!-- NOME--><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      placeholder="Digite seu nome" 
+      value="{{ clearInputs ? '' : nomeEmpresaCad.value }}" 
+      #nomeEmpresaCad ><ion-label slot="label">Nome da empresa</ion-label>
+    </ion-input>
 
-        <!-- SOBRENOME --><ion-input label-placement="floating" label="Nome do Estabelecimento:" clearInput="true"
-          placeholder="Digite seu sobrenome" value="{{ clearInputs ? '' : nomeLocalCad.value }}" #nomeLocalCad />
+      <!-- SOBRENOME --><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      placeholder="Digite seu sobrenome" 
+      value="{{ clearInputs ? '' : nomeLocalCad.value }}" 
+      #nomeLocalCad ><ion-label slot="label">Nome do estabelecimento</ion-label>
+    </ion-input>
 
-        <!-- APELIDO --><ion-input label-placement="floating" label="CNPJ:" clearInput="true"
-         placeholder="Digite seu apelido" value="{{ clearInputs ? '' : CnpjCad.value }}"
-          #CnpjCad />
+      <!-- APELIDO --><ion-input 
+      label-placement="stacked" 
+      clearInput="true"
+      placeholder="Digite seu apelido" 
+      value="{{ clearInputs ? '' : CnpjCad.value }}" 
+      #CnpjCad ><ion-label slot="label">CNPJ</ion-label>
+    </ion-input>
 
-          <!-- DATA DE NASCIMENTO --><ion-input label-placement="floating" label="Telefone:" clearInput="true"
-          type="tel" placeholder="" value="{{ clearInputs ? '' : telefoneCad.value }}"
-          #telefoneCad />
+      <!-- DATA DE NASCIMENTO --><ion-input 
+      label-placement="stacked" 
+      clearInput="true" 
+      type="tel"
+      placeholder="" 
+      value="{{ clearInputs ? '' : telefoneCad.value }}" 
+      #telefoneCad ><ion-label slot="label">Telefone</ion-label>
+    </ion-input>
 
 
-          <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
+      <!-- BOTÃO CADASTRAR --><ion-button class="btnCad"
         (click)="cadEmpresa(nomeEmpresaCad.value, nomeLocalCad.value, CnpjCad.value, telefoneCad.value)">
         Cadastrar-se
       </ion-button>

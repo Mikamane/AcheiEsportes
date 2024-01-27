@@ -29,6 +29,27 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'perfilPJ',
+        loadChildren: () =>
+          import('../pagesEmpresa/perfil/perfil.module').then(
+            (m) => m.PerfilPageModule
+          ),
+      },
+      {
+        path: 'criarPJ',
+        loadChildren: () =>
+          import('../pagesEmpresa/criar/criar.module').then(
+            (m) => m.CriarPageModule
+          ),
+      },
+      {
+        path: 'turmasPJ',
+        loadChildren: () =>
+          import('../pagesEmpresa/turmas/turmas.module').then(
+            (m) => m.TurmasPageModule
+          ),
+      },
+      {
         path: '',
         redirectTo: '/tabs/inicio',
         pathMatch: 'full',

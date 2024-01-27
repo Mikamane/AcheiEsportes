@@ -33,11 +33,11 @@ const routes: Routes = [
     loadChildren: () => import('./pagesEmpresa/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
-    path: 'criar',
+    path: 'criarPJ',
     loadChildren: () => import('./pagesEmpresa/criar/criar.module').then( m => m.CriarPageModule)
   },
   {
-    path: 'turmas',
+    path: 'turmasPJ',
     loadChildren: () => import('./pagesEmpresa/turmas/turmas.module').then( m => m.TurmasPageModule)
   },
 

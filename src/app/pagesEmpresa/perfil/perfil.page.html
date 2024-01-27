@@ -1,13 +1,29 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>perfil</ion-title>
+    <ion-title>Seu perfil</ion-title>
+    <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+    <!-- ▼ BOTÃO DO MENU DE LOGOUT, EDITAR PERFIL E MODO ESCURO ▼ -->
+    <ion-button id="popover-button" (click)="openMenu()" class="opcoes">
+      <ion-icon name="settings-outline"></ion-icon>
+    </ion-button>
+    <!-- Itens do menu -->
+    <ion-popover trigger="popover-button" [isOpen]="isMenuOpen" [dismissOnSelect]="false">
+      <ng-template>
+        <ion-content class="boxPop">
+
+          <ion-title class="menuPop">Opções</ion-title>
+
+          <ion-list class="listMenu">
+            <ion-item class="itemMenu" [button]="true" [detail]="false">
+              <ion-toggle>Modo Escuro</ion-toggle>
+            </ion-item>
+            <ion-item class="itemMenu sair" (click)="sair()" [button]="true">
+              Sair
+              <ion-icon class="iconMenu sair" name="exit-outline"></ion-icon>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>

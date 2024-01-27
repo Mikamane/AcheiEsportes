@@ -31,6 +31,7 @@ ion-title {
 ion-content {
   padding: 0;
   margin: 0;
+  --background: var(--branco);
 }
 
 /* ----------------------- Botão de Opções ----------------------- */
@@ -97,100 +98,196 @@ ion-popover {
 
 .infoPerfil {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 0 15px 15px;
 }
 
 .fotoPerfil {
   clip-path: circle();
   object-fit: cover;
   object-position: center;
-  min-width: 250px;
-  height: 250px;
+  min-width: 130px;
+  min-height: 130px;
   margin-top: 20px;
 }
 
+.fotoPerfilchange{
+  position: absolute;
+  top: 3%;
+  left: 30%;
+  z-index: 999999;
+  font-size: 1.5rem;
+  background-color: var(--roxo);
+  color: var(--branco);
+  border-radius: 50px;
+  padding: 5px;
+  --ionicon-stroke-width: 50px;
+}
+
+#inputFile2{
+  display: none;
+}
+
+.infoPerfil-dados {
+  width: 100%;
+  padding-left: 5px;
+}
+
 .infoPerfil h3 {
-  width: 90%;
-  text-align: center;
-  margin: 10px 0 0 0;
+  width: 100%;
+  text-align: right;
+  margin: 0 0 0 0;
   padding: 0;
   font-family: "Roboto Flex", sans-serif;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 1px;
 }
 
 .infoPerfil h4 {
-  width: 95%;
-  text-align: center;
+  width: 100%;
+  text-align: right;
   margin: 5px 0 0 0;
   padding: 0;
   font-family: "Roboto Flex", sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-style: oblique;
   font-weight: 400;
   letter-spacing: 1px;
 }
 
-/* ----------------------- Botão de informações completas ----------------------- */
-.moreInfo {
-  background-color: rgba(214, 214, 214, 0.35);
-  color: var(--azulEscuro);
-  width: 80%;
-  padding: 10px 5px;
-  margin-top: 18px;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-family: "Montserrat", sans-serif;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  font-weight: 500;
-  text-underline-offset: 3px;
+.bioBox {
+  padding: 0 15px 15px;
+  background-color: rgba(255, 126, 14, 0.15);
+  padding-top: 15px;
+  margin-bottom: 30px;
+  position: relative;
 }
+
+.bioIco {
+  position: absolute;
+  right: 2%;
+  top: -7%;
+  font-size: 1.7rem;
+  background-color: var(--laranja);
+  color: white;
+  border-radius: 5px;
+  padding: 2px;
+  --ionicon-stroke-width: 50px;
+}
+
+.bioPerfil {
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 1.25rem;
+  --padding-top: 5px;
+  --padding-botom: 5px;
+  --padding-start: 5px;
+  --padding-end: 5px;
+  --background: none;
+  font-weight: 400;
+  color: black;
+  --border-radius: 5px;
+  --border-width: 2px;
+  --border-style: solid;
+  --border-color: var(--laranja);
+}
+
+.bioPerfilMod{
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 1.25rem;
+  --padding-top: 5px;
+  --padding-botom: 5px;
+  --padding-start: 5px;
+  --padding-end: 5px;
+  --background: var(--branco);
+  font-weight: 400;
+  color: black;
+  --border-radius: 5px;
+  --border-width: 2px;
+  --border-style: solid;
+  --border-color: var(--roxo);
+}
+
 
 /* ----------------------- Sessão de fotos ----------------------- */
 #inputFile {
   display: none;
 }
 
-h5 {
-  width: 95%;
-  margin: 20px 10px 10px;
-  padding: 5px 0 0 0;
-  font-family: "Roboto Flex", sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  border-top: 1px solid black;
-}
-
 ion-grid {
   width: 95%;
   margin: 10px;
+  border-radius: 0.3125rem;
+  background: rgba(0, 0, 0, 0.01);
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.30);
+}
+
+ion-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 ion-col {
-  background-color: #135d54;
-  border: solid 1px #fff;
+  background-color: rgb(72, 61, 139, 0.15);
+  border: solid .5px rgb(72, 61, 139, 0.3);
   color: #fff;
   text-align: center;
   height: 100px;
-  font-size: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: 700;
+  margin: 5px;
+  border-radius: 10px;
 }
 
 img {
-  width: 100%;
+  width: 100px;
   height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+.newImg-div {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.newImg-btn {
+  position: absolute;
+  width: 70%;
+  top: 8%;
+  height: auto;
   object-fit: cover;
   object-position: center;
 }
 
+.newImg-txt {
+  position: absolute;
+  color: #51505A;
+  bottom: 2%;
+  left: 3%;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: "Roboto Flex", sans-serif;
+}
+
+.newImg-ico {
+  position: absolute;
+  color: #51505A;
+  bottom: 2%;
+  right: 0%;
+  font-size: 1.5rem;
+  --ionicon-stroke-width: 50px;
+}
+
+
+
 .modalImg {
-  --height: 50%;
+  --height: auto;
   --border-radius: 5px;
   --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
@@ -201,19 +298,19 @@ img {
 }
 
 .modalImg::part(content) {
+  height: 36vh;
   background: #ffffff00;
 }
 
 .ngTemplateImgModal,
 .contentImgModal {
-  --background: rgba(255, 0, 0, 0);
+  --background: rgba(255, 0, 0, 0); 
 }
 
 .divImgModal {
   background-color: #135d5400;
-  height: 100%;
+  height: max-content;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -239,8 +336,10 @@ img {
 }
 
 .imgModal {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 35vh;
+  object-fit: fill;
+  
 }
 
 
@@ -341,7 +440,11 @@ img {
   border-radius: 5px;
   background-color: rgba(122, 122, 122, 0.2);
   margin-bottom: 10px;
-  --padding-start: 12px;
+
+}
+
+ion-input {
+  --padding-start: 120px;
 }
 
 .inputModalMod {

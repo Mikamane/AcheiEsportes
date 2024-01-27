@@ -17,6 +17,7 @@ import {
   where,
   getDocs,
 } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-login',
@@ -37,10 +38,11 @@ export class FormLoginComponent implements OnInit {
   constructor(
     private sessionService: SessionDataService,
     private auth: Auth,
-    private firestore: Firestore
-  ) {}
+    private firestore: Firestore,
+    private router: Router
+  ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   /* Função para login com email e senha */
   async loginPadrao(email: any, pass: any) {
@@ -59,6 +61,11 @@ export class FormLoginComponent implements OnInit {
               this.loading = false;
               /* Ir para o aplicativo */
               this.sessionService.setMyVariable(1);
+              if (this.dadosUsuario.privilege == 'PF') {
+                this.router.navigate(['/tabs/inicio']);
+              } else {
+                this.router.navigate(['/tabs/turmasPJ']);
+              }
               /* Limpar os campos dos formularios */
               this.clearInputs = true;
             }, 1000);
@@ -74,28 +81,39 @@ export class FormLoginComponent implements OnInit {
   }
 
   /* Função para cadastro de pessoas físicas */
-  prosseguirCad(email: any, pass: any, rePass: any) {
+  async prosseguirCad(email: any, pass: any, rePass: any) {
     if (this.continueCad == false) {
       if (email == '' || pass == '' || rePass == '') {
         console.log('Preencha todos os campos!');
       } else if (pass != rePass) {
         console.log('As senha precisam ser iguais!');
       } else {
-        this.cadInicial = {
-          email: email,
-          senha: pass,
-        };
+        const userQuery = query(
+          collection(this.firestore, 'Usuarios'),
+          where('email', '==', `${this.cadInicial.email}`)
+        );
+        const querySnapshot = await getDocs(userQuery);
 
-        this.continueCad = !this.continueCad;
-
-        if (this.logoClass === 'visible') {
-          this.logoClass = 'hidden';
+        if (!querySnapshot.empty) {
+          console.log('Usuário já existe');
         } else {
-          this.logoClass = 'visible';
+          this.cadInicial = {
+            email: email,
+            senha: pass,
+          };
+
+          this.continueCad = !this.continueCad;
+
+          if (this.logoClass === 'visible') {
+            this.logoClass = 'hidden';
+          } else {
+            this.logoClass = 'visible';
+          }
         }
       }
     } else {
       this.continueCad = !this.continueCad;
+      this.cadInicial = {};
 
       if (this.logoClass === 'visible') {
         this.logoClass = 'hidden';
@@ -105,22 +123,12 @@ export class FormLoginComponent implements OnInit {
     }
   }
 
-  async cadUser(nome: any, sobrenome: any, apelido: any, dataNasc: any) {
+  async cadUser(nome: any, sobrenome: any, tel: any, dataNasc: any) {
     this.loading = true;
     /*  Verificações de campo vazio */
     if (nome == '' || sobrenome == '' || dataNasc == '') {
       console.log('Preencha todos os campos!');
     } else {
-      const userQuery = query(
-        collection(this.firestore, 'Usuarios'),
-        where('email', '==', `${this.cadInicial.email}`)
-      );
-      const querySnapshot = await getDocs(userQuery);
-
-      if (!querySnapshot.empty) {
-        console.log('Usuário já existe');
-      } else {
-        /* Mandar alguns dados para o ionic Storage */
         console.log('Usuário cadastrado com sucesso!');
         /* Cadastrar no Auth */
         createUserWithEmailAndPassword(
@@ -145,7 +153,8 @@ export class FormLoginComponent implements OnInit {
           nivelAcesso: 'PF',
           nome: nome,
           sobrenome: sobrenome,
-          apelido: apelido,
+          apelido: '',
+          telefone: tel,
           dataNasc: dataNasc,
         };
         const document = doc(collection(this.firestore, 'Usuarios'));
@@ -157,12 +166,13 @@ export class FormLoginComponent implements OnInit {
           this.loading = false;
           /* Ir para o aplicativo */
           this.sessionService.setMyVariable(1);
+          this.router.navigate(['/inicio']);
           /* Limpar os campos dos formularios */
           this.clearInputs = true;
         }, 1000);
       }
     }
-  }
+  
 
   /* Função para cadastro de empresas */
   async cadEmpresa(nome: any, nomeLocal: any, cnpj: any, tel: any) {
@@ -216,6 +226,7 @@ export class FormLoginComponent implements OnInit {
           this.loading = false;
           /* Ir para o aplicativo */
           this.sessionService.setMyVariable(1);
+          this.router.navigate(['/turmasPJ']);
           /* Limpar os campos dos formularios */
           this.clearInputs = true;
         }, 1000);

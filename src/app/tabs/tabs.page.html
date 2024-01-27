@@ -1,8 +1,9 @@
 <ion-content>
   <app-form-login *ngIf="!isLogged"></app-form-login>
-  
+
 </ion-content>
-<ion-tabs *ngIf="isLogged">
+<!-- Menu da sessão de usuário -->
+<ion-tabs *ngIf="(isLogged) && (sessionLevel == 'PF')">
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="inicio" href="/tabs/inicio">
       <ion-icon name="search-outline"></ion-icon>
@@ -18,5 +19,25 @@
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>Perfil</ion-label>
     </ion-tab-button>
-  </ion-tab-bar> 
+  </ion-tab-bar>
+</ion-tabs>
+
+<!-- Menu da sessão de Empresa -->
+<ion-tabs *ngIf="(isLogged) && (sessionLevel == 'PJ')">
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="turmasPJ" href="/tabs/turmasPJ">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-label>Turmas</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="criarPJ" href="/tabs/criarPJ">
+      <ion-icon name="duplicate-outline"></ion-icon>
+      <ion-label>Criar</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="perfilPJ" href="/tabs/perfilPJ">
+      <ion-icon name="business-outline"></ion-icon>
+      <ion-label>Perfil</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
 </ion-tabs>

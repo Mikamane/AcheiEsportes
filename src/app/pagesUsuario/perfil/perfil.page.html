@@ -14,8 +14,12 @@
           <ion-title class="menuPop">Opções</ion-title>
 
           <ion-list class="listMenu">
-            <ion-item class="itemMenu" [button]="true" [detail]="false">
+            <!-- <ion-item class="itemMenu" [button]="true" [detail]="false">
               <ion-toggle>Modo Escuro</ion-toggle>
+            </ion-item> -->
+            <ion-item class="itemMenu" [button]="true" [detail]="false" (click)="openModal()">
+              Perfil completo
+              <ion-icon name="document-text-outline"></ion-icon>
             </ion-item>
             <ion-item class="itemMenu sair" (click)="sair()" [button]="true">
               Sair
@@ -31,27 +35,49 @@
 <ion-content>
   <div class="infoPerfil">
     <!-- ▼ FOTO DE PERFIL ▼ -->
-    <img src="https://ionicframework.com/docs/img/demos/card-media.png" class="fotoPerfil" />
-    <h3>{{dadosUser.nome+', ' + dadosUser.idade + ' anos'}}</h3>
-    <h4 *ngIf="dadosUser.apelido != ''"> Apelido:{{dadosUser.apelido}}</h4>
-    <!-- ▼ BOTÃO QUE EXPANDE O RESTANTE DAS INFOS ▼ -->
-    <button class="moreInfo" (click)="openModal()">Ver informações completas</button>
+    <ion-icon class="fotoPerfilchange" name="pencil-sharp" (click)="ativarInput2()"></ion-icon>
+    <img *ngIf="!fotoPerfil.imgURL" src="https://ionicframework.com/docs/img/demos/card-media.png" class="fotoPerfil" />
+    <img *ngIf="fotoPerfil.imgURL" src="{{this.fotoPerfil.imgURL}}" class="fotoPerfil" />
+    <input type="file" name="" id="inputFile2" (change)="cadastrarFotoPerfil($event)">
+    <aside class="infoPerfil-dados">
+      <h3>{{dadosUser.nome+' '+dadosUser.sobrenome+', '}}</h3>
+      <h3>{{dadosUser.idade + ' anos'}}</h3>
+      <h4 *ngIf="dadosUser.apelido != ''"> Apelido:{{dadosUser.apelido}}</h4>
+    </aside>
+  </div>
+  <div class="bioBox">
+    <ion-icon class="bioIco" name="pencil-sharp" (click)="editarBioOn()"></ion-icon>
+    <ion-textarea 
+    class="{{bioReadOnly ? 'bioPerfil' : 'bioPerfilMod' }}"
+    value="{{dadosUser.bio}}" 
+    [counter]="true" 
+    maxlength="150"
+    readonly="{{bioReadOnly}}" 
+    (ionBlur)="editarBio(bio.value)"
+    [autoGrow]="true"
+    #bio ></ion-textarea>
   </div>
   <!-- ▼ INÍCIO DA SESSÃO DE FOTOS ▼ -->
-
-  <h5>Fotos</h5>
   <ion-grid>
     <ion-row>
       <input type="file" name="" id="inputFile" (change)="cadastrarFoto($event)">
-      <ion-col size="4" (click)="ativarInput()"><ion-icon name="add"></ion-icon></ion-col>
+      <ion-col size="auto" (click)="ativarInput()">
+        <div class="newImg-div">
+          <img class="newImg-btn" src="../../../assets/img/novaFoto.png" alt="">
+          <span class="newImg-txt">Nova foto</span>
+          <ion-icon class="newImg-ico" name="add"></ion-icon>
+        </div>
+      </ion-col>
 
-      <ion-col *ngFor="let i of imagensPerfil" size="4">
+      <ion-col *ngFor="let i of imagensPerfil" size="auto">
         <img id="{{i.imgName}}" src="{{i.imgURL}}" alt="">
         <!-- Modal da foto em tela cheia -->
         <ion-modal #modal trigger="{{i.imgName}}" class="modalImg">
           <ng-template class="ngTemplateImgModal">
             <ion-content class="contentImgModal">
+
               <div class="divImgModal">
+                
                 <nav class="botoesImg">
                   <ion-button class="btnImg" (click)="presentAlert(i.imgName, modal)">
                     <ion-icon class="iconTrash" name="trash"></ion-icon>
@@ -61,8 +87,10 @@
                     <ion-icon name="close-outline"></ion-icon> Fechar
                   </ion-button>
                 </nav>
+
                 <img src="{{i.imgURL}}" alt="" class="imgModal">
               </div>
+
             </ion-content>
           </ng-template>
         </ion-modal>
@@ -101,9 +129,16 @@
       <div class="personalInfo">
         <h4>Informações pessoais</h4>
         <ion-item class="itemModal">
-          <label class="labelModal">Nome completo <legend *ngIf="!readOnly">*</legend> :</label>
+          <label class="labelModal">Nome <legend *ngIf="!readOnly">*</legend> :</label>
           <ion-input #nome (change)="dadosUser.nome = nome.value" class="{{readOnly ? 'inputModal' : 'inputModalMod' }}"
             readonly="{{readOnly}}" value="{{dadosUser.nome}}" [required]="true"></ion-input>
+        </ion-item>
+
+        <ion-item class="itemModal">
+          <label class="labelModal">Sobrenome <legend *ngIf="!readOnly">*</legend> :</label>
+          <ion-input #sobrenome (change)="dadosUser.sobrenome = sobrenome.value"
+            class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" readonly="{{readOnly}}"
+            value="{{dadosUser.sobrenome}}" [required]="true"></ion-input>
         </ion-item>
 
         <ion-item class="itemModal">
@@ -119,13 +154,20 @@
             class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" type="date" readonly="{{readOnly}}"
             value="{{dadosUser.dataNasc}}" [required]="true"></ion-input>
         </ion-item>
-        <!-- -------------------------------------------------------------------------------------- -->
-        <h4>Dados cadastrais</h4>
+
+        <ion-item class="itemModal">
+          <label class="labelModal">Telefone:</label>
+          <ion-input #tel (change)="dadosUser.telefone = tel.value"
+            class="{{readOnly ? 'inputModal' : 'inputModalMod' }}" readonly="{{readOnly}}"
+            value="{{dadosUser.telefone}}" [required]="true"></ion-input>
+        </ion-item>
+
         <ion-item class="itemModal">
           <label class="labelModal">Email:</label>
           <ion-input class="inputModal" readonly="true" value="{{dadosUser.email}}" [required]="true"></ion-input>
         </ion-item>
-
+        <!-- --------------------------------------------------------------------------------- -->
+        <h4>Validação de usuário</h4>
         <ion-item class="itemModal">
           <label class="labelModal">RG:</label>
           <ion-input class="inputModal" readonly="true" value="Avaliação pendente"></ion-input>
@@ -134,4 +176,3 @@
     </ion-content>
   </ng-template>
 </ion-modal>
-

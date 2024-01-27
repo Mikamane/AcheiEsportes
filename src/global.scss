@@ -38,3 +38,20 @@ font-family: 'Roboto Flex', sans-serif; */
   --padding: 0;
 }
 
+ion-textarea.bioPerfil.ios .textarea-bottom .helper-text,
+ion-textarea.bioPerfil.ios .textarea-bottom .counter,
+ion-textarea.bioPerfil.md .textarea-bottom .helper-text,
+ion-textarea.bioPerfil.md .textarea-bottom .counter {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--laranja);
+}
+
+ion-textarea.bioPerfilMod.ios .textarea-bottom .helper-text,
+ion-textarea.bioPerfilMod.ios .textarea-bottom .counter,
+ion-textarea.bioPerfilMod.md .textarea-bottom .helper-text,
+ion-textarea.bioPerfilMod.md .textarea-bottom .counter {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--roxo);
+}
