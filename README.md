@@ -8,18 +8,17 @@
 </div>
 
 <br/>
-Achei! Esportes - uma empresa que conecta pessoas interessadas em praticar esportes com as empresas que fornecem essas aulas.
-Atualmente focada apenas no Rio de Janeiro, mas com planos de expansão pelo Brasil.<br/>
+Bem-vindo ao aplicativo Achei! Esportes, uma plataforma que conecta pessoas interessadas em praticar esportes com empresas que oferecem aulas. Atualmente, estamos focados no Rio de Janeiro, mas temos planos de expansão por todo o Brasil.<br/>
 <br/>
 
 ### Como utilizar o aplicativo.
 
 - Para uma melhor visualização utilize o modo de inspeção da página e selecione o dispositivo samsung galaxy 8+.<br/>
-- Para entrar no aplicativo, crie uma conta no nosso sistema de cadastro (\*OBS: crie uma conta fake, com informações inventadas) <br/>
+- Para entrar no aplicativo, crie uma conta no nosso sistema de cadastro (\*Observação: Utilize informações fictícias para criar uma conta.) <br/>
 
 Fluxo do usuário:<br/>
 
-- Fazer login na aplicação > buscar o esporte que deseja > escolher uma turma > ser verificado > acompanhar suas aulas pelo app<br/>
+-  Faça login na aplicação.> Busque o esporte desejado.> Escolha uma turma.>  Passe pela verificação.> Acompanhe suas aulas pelo aplicativo.<br/>
 
 ### Como instalar e rodar este aplicativo...
 
@@ -40,3 +39,17 @@ Através do comando "ionic serve" no terminal, para rodar o aplicativo.
 # V - Após a montagem do aplicativo na etapa anterior...
 Copie o URL do Localhost disponibilizado no terminal ou pressione CTRL + CLICK no URL alvo.
 ```
+
+Observações Importantes
+
+Informações Fictícias: Ao criar uma conta, utilize informações fictícias para garantir a privacidade e segurança.
+Compatibilidade: Recomenda-se visualizar o aplicativo no modo de inspeção para o dispositivo Samsung Galaxy 8+.
+
+
+Aproveite o uso do aplicativo Achei! Esportes e, caso tenha feedback ou problemas, entre em contato através dos canais apropriados. Obrigado por escolher Achei! Esportes.
+
+
+
+Protótipo UX/UI (Figma):<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="Achei! Esportes " allowfullscreen></iframe>
+
+
