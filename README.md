@@ -3,7 +3,7 @@
 </div>
 <br/>
 
-<div align="center" style="background:#0e1621;">
+<div align="center" style="background-color:#0e1621;">
   <img src="./src/assets/icon&logo/logo.svg" width="20%" /> <h1>Achei! Esportes</h1>
 </div>
 
