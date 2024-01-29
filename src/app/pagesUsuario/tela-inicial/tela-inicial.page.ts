@@ -10,4 +10,4 @@ export class TelaInicialPage implements OnInit {
 
   ngOnInit() { }
 
-}
+} 

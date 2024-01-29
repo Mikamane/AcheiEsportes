@@ -1,67 +1,85 @@
-<ion-toolbar>
-  <figure>
-    <img src="../../../assets/icon&logo/logo.svg" alt="" class="logo" />
-  </figure>
-</ion-toolbar>
+<ion-content class="main">
+  <ion-toolbar class="header">
+    <figure>
+      <img src="../../../assets/icon&logo/logo.svg" alt="" class="logo" />
+    </figure>
 
-<ion-content>
-  <div class="filtros">
-    <ion-select [multiple]="true" placeholder="Selecione o esporte desejado">
-      <ion-select-option value="apples">Futebol</ion-select-option>
-      <ion-select-option value="oranges">Natação</ion-select-option>
-      <ion-select-option value="bananas">Musculação</ion-select-option>
-      <ion-select-option value="apples">Handbol</ion-select-option>
-      <ion-select-option value="oranges">Vôlei</ion-select-option>
-      <ion-select-option value="bananas">Basquete</ion-select-option>
-      <ion-select-option value="apples">Atletismo</ion-select-option>
-      <ion-select-option value="oranges">Judô</ion-select-option>
-      <ion-select-option value="bananas">Karatê</ion-select-option>
-      <ion-select-option value="apples">Surf</ion-select-option>
-      <ion-select-option value="oranges">Skateboard</ion-select-option>
-      <ion-select-option value="bananas">Futsal</ion-select-option>
-    </ion-select>
 
-    <ion-select [multiple]="true" placeholder="Selecione o bairro">
-      <ion-select-option value="apples">Barra da Tijuca</ion-select-option>
-      <ion-select-option value="oranges">Guaratiba</ion-select-option>
-      <ion-select-option value="bananas">Botafogo</ion-select-option>
-      <ion-select-option value="apples">Campo Grande</ion-select-option>
-      <ion-select-option value="oranges">Nova Iguaçu</ion-select-option>
-      <ion-select-option value="bananas">Santa cruz</ion-select-option>
-      <ion-select-option value="apples">Pedra de Guaratiba</ion-select-option>
-      <ion-select-option value="oranges">Recreio</ion-select-option>
-      <ion-select-option value="bananas">Copacabana</ion-select-option>
-      <ion-select-option value="apples">Jacarépaguá</ion-select-option>
-      <ion-select-option value="oranges">Penha</ion-select-option>
-      <ion-select-option value="bananas">Bangu</ion-select-option>
-    </ion-select>
+    <div class="openMenuBtnBox">
+      <ion-menu-button class="openMenuBtn" id="filterMenu"> Pesquisa avançada<ion-icon
+          name="options-outline"></ion-icon></ion-menu-button>
+    </div>
+  </ion-toolbar>
 
-    <ion-select [multiple]="true" placeholder="Selecione o faixa etária">
-      <ion-select-option value="apples">Infantil</ion-select-option>
-      <ion-select-option value="oranges">Adulto/Jovem</ion-select-option>
-      <ion-select-option value="bananas">Idoso</ion-select-option>
-    </ion-select>
+  <ion-searchbar class="searchMenu" show-clear-button="focus"
+    placeholder="Pesquise por esporte ou bairro..."></ion-searchbar>
 
-    <ion-select [multiple]="true" placeholder="Opções de valor">
-      <ion-select-option value="apples">Pago</ion-select-option>
-      <ion-select-option value="oranges">Gratuito</ion-select-option>
-    </ion-select>
 
-    <ion-select [multiple]="true" placeholder="Turno desejado">
-      <ion-select-option value="apples">Manhã</ion-select-option>
-      <ion-select-option value="oranges">Tarde</ion-select-option>
-      <ion-select-option value="bananas">Noite</ion-select-option>
-    </ion-select>
+  <ion-menu contentId="filterMenu">
+    <ion-toolbar class="toolbarMenu">
+      <ion-title>Pesquisa Avançada <ion-icon name="options-outline"></ion-icon></ion-title>
+    </ion-toolbar>
+    <ion-content class="ion-padding">
+      <div class="filtros">
+        <ion-select [multiple]="true" placeholder="Selecione o esporte desejado">
+          <ion-select-option value="apples">Futebol</ion-select-option>
+          <ion-select-option value="oranges">Natação</ion-select-option>
+          <ion-select-option value="bananas">Musculação</ion-select-option>
+          <ion-select-option value="apples">Handbol</ion-select-option>
+          <ion-select-option value="oranges">Vôlei</ion-select-option>
+          <ion-select-option value="bananas">Basquete</ion-select-option>
+          <ion-select-option value="apples">Atletismo</ion-select-option>
+          <ion-select-option value="oranges">Judô</ion-select-option>
+          <ion-select-option value="bananas">Karatê</ion-select-option>
+          <ion-select-option value="apples">Surf</ion-select-option>
+          <ion-select-option value="oranges">Skateboard</ion-select-option>
+          <ion-select-option value="bananas">Futsal</ion-select-option>
+        </ion-select>
 
-    <ion-buttons>
-      <ion-button>Limpar filtros</ion-button>
-      <ion-button>Pesquisar</ion-button>
-    </ion-buttons>
-  </div>
+        <ion-select [multiple]="true" placeholder="Selecione o bairro">
+          <ion-select-option value="apples">Barra da Tijuca</ion-select-option>
+          <ion-select-option value="oranges">Guaratiba</ion-select-option>
+          <ion-select-option value="bananas">Botafogo</ion-select-option>
+          <ion-select-option value="apples">Campo Grande</ion-select-option>
+          <ion-select-option value="oranges">Nova Iguaçu</ion-select-option>
+          <ion-select-option value="bananas">Santa cruz</ion-select-option>
+          <ion-select-option value="apples">Pedra de Guaratiba</ion-select-option>
+          <ion-select-option value="oranges">Recreio</ion-select-option>
+          <ion-select-option value="bananas">Copacabana</ion-select-option>
+          <ion-select-option value="apples">Jacarépaguá</ion-select-option>
+          <ion-select-option value="oranges">Penha</ion-select-option>
+          <ion-select-option value="bananas">Bangu</ion-select-option>
+        </ion-select>
+
+        <ion-select [multiple]="true" placeholder="Selecione o faixa etária">
+          <ion-select-option value="apples">Infantil</ion-select-option>
+          <ion-select-option value="oranges">Adulto/Jovem</ion-select-option>
+          <ion-select-option value="bananas">Idoso</ion-select-option>
+        </ion-select>
+
+        <ion-select [multiple]="true" placeholder="Opções de valor">
+          <ion-select-option value="apples">Pago</ion-select-option>
+          <ion-select-option value="oranges">Gratuito</ion-select-option>
+        </ion-select>
+
+        <ion-select [multiple]="true" placeholder="Turno desejado">
+          <ion-select-option value="apples">Manhã</ion-select-option>
+          <ion-select-option value="oranges">Tarde</ion-select-option>
+          <ion-select-option value="bananas">Noite</ion-select-option>
+        </ion-select>
+
+        <ion-buttons>
+          <ion-button class="btnFiltroLimpar">Limpar filtros</ion-button>
+          <ion-button class="btnFiltro">Pesquisar</ion-button>
+        </ion-buttons>
+      </div>
+    </ion-content>
+  </ion-menu>
+
 
   <h1>Resultados:</h1>
 
-  <ion-card>
+  <ion-card class="cardResultado">
     <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
     <ion-card-header>
       <ion-card-title>Card Title</ion-card-title>
@@ -75,4 +93,66 @@
 
     <ion-button expand="full">Ver mais</ion-button>
   </ion-card>
+
+  <ion-card class="cardResultado">
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more,
+      nothing less.
+    </ion-card-content>
+
+    <ion-button expand="full">Ver mais</ion-button>
+  </ion-card>
+
+  <ion-card class="cardResultado">
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more,
+      nothing less.
+    </ion-card-content>
+
+    <ion-button expand="full">Ver mais</ion-button>
+  </ion-card>
+
+  <ion-card class="cardResultado">
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more,
+      nothing less.
+    </ion-card-content>
+
+    <ion-button expand="full">Ver mais</ion-button>
+  </ion-card>
+
+  <ion-card class="cardResultado">
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more,
+      nothing less.
+    </ion-card-content>
+
+    <ion-button expand="full">Ver mais</ion-button>
+  </ion-card>
+
+  
 </ion-content>

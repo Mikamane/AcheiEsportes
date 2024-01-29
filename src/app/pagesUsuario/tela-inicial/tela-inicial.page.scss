@@ -2,14 +2,25 @@
 font-family: 'Montserrat', sans-serif;
 font-family: 'Roboto Flex', sans-serif; */
 
+.main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-ion-toolbar {
+.header {
+  position: relative;
   --background: var(--azulEscuro);
-  height: 30vh;
+  height: max-content;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  padding: 15px 0 0 0;
+  margin: 0;
 }
+
 
 figure {
   width: fit-content;
@@ -20,9 +31,95 @@ figure {
   width: 90vw;
 }
 
-.filtros{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 10px 10px 50px;
+.openMenuBtnBox {
+  width: 90%;
+  margin: auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.openMenuBtn {
+  z-index: 1000;
+  width: 100%;
+  --background: var(--roxo);
+  font-family: 'Roboto Flex', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  display: flex;
+  --color: white;
+  --border-radius: 5px;
+  --padding-bottom: 7px;
+  --padding-end: 7px;
+  --padding-start: 7px;
+  --padding-top: 7px;
+}
+
+.openMenuBtn ion-icon {
+  padding-left: 20px;
+  font-size: 2rem;
+}
+
+.searchMenu {
+  width: 90%;
+  --background: white;
+  position: absolute;
+  z-index: 1000;
+  top: 34.5%;
+  left: 5%;
+  --border-radius: 5px;
+  border-radius: 5px;
+  outline: 2px solid var(--laranja);
+  padding: 0;
+  font-family: 'Roboto Flex', sans-serif;
+  font-size: 1.3rem;
+}
+
+.toolbarMenu {
+  height: max-content;
+  --background: var(--laranja);
+  padding-left: 10px;
+  color: white;
+}
+
+.toolbarMenu ion-title {
+  font-family: 'Roboto Flex', sans-serif;
+  font-size: 1.3rem;
+  position: relative;
+  display: flex;
+
+}
+
+.toolbarMenu ion-title ion-icon {
+  font-size: 2rem;
+  position: absolute;
+  top: -10%;
+  right: 10%;
+}
+
+.filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 10px 50px;
+}
+
+.btnFiltro {
+  --background: var(--azul);
+  color: white;
+}
+
+.btnFiltroLimpar {
+  --background: var(--vermelho);
+  color: white;
+}
+
+h1 {
+  font-family:'Roboto Flex', sans-serif;
+  margin: 50px 0 20px 15px;
+}
+
+.cardResultado{
+  width: 90%;
+  margin: auto auto 50px auto;
 }
