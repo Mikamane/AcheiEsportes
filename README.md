@@ -4,7 +4,7 @@
 <br/>
 
 <div align="center">
-  <img src="./src/assets/icon&logo/logo.png" width="20%" /> <h1>Achei! Esportes</h1>
+  <img src="./src/assets/icon&logo/logo.svg" width="20%" /> <h1>Achei! Esportes</h1>
 </div>
 
 <br/>
@@ -50,7 +50,7 @@ Aproveite o uso do aplicativo Achei! Esportes e, caso tenha feedback ou problema
 
 
 
-Protótipo UX/UI (Figma):<a href="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F94rsdTbvtCOsRpVNSc5LO8%2FAchei!-Esportes%3Ftype%3Ddesign%26node-id%3D232-2%26t%3DVtVkp7Pe6v23Frhh-1%26scaling%3Dscale-down%26page-id%3D0%253A1%26starting-point-node-id%3D232%253A2%26show-proto-sidebar%3D1%26mode%3Ddesign
+Protótipo UX/UI (Figma): <a href="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F94rsdTbvtCOsRpVNSc5LO8%2FAchei!-Esportes%3Ftype%3Ddesign%26node-id%3D232-2%26t%3DVtVkp7Pe6v23Frhh-1%26scaling%3Dscale-down%26page-id%3D0%253A1%26starting-point-node-id%3D232%253A2%26show-proto-sidebar%3D1%26mode%3Ddesign
 ">Visualizar</a> 
 
 
