@@ -4,7 +4,7 @@
 <br/>
 
 <div align="center">
-  <img src="./src/assets/icon&logo/logoComFundo.png" width="20%" /> <h1>Achei! Esportes</h1>
+  <img src="./src/assets/icon&logo/LogoComFundo.png" width="20%" /> <h1>Achei! Esportes</h1>
 </div>
 
 <br/>
