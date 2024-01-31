@@ -21,56 +21,34 @@
     </ion-toolbar>
     <ion-content class="ion-padding">
       <div class="filtros">
-        <ion-select [multiple]="true" placeholder="Selecione o esporte desejado">
-          <ion-select-option value="apples">Futebol</ion-select-option>
-          <ion-select-option value="oranges">Natação</ion-select-option>
-          <ion-select-option value="bananas">Musculação</ion-select-option>
-          <ion-select-option value="apples">Handbol</ion-select-option>
-          <ion-select-option value="oranges">Vôlei</ion-select-option>
-          <ion-select-option value="bananas">Basquete</ion-select-option>
-          <ion-select-option value="apples">Atletismo</ion-select-option>
-          <ion-select-option value="oranges">Judô</ion-select-option>
-          <ion-select-option value="bananas">Karatê</ion-select-option>
-          <ion-select-option value="apples">Surf</ion-select-option>
-          <ion-select-option value="oranges">Skateboard</ion-select-option>
-          <ion-select-option value="bananas">Futsal</ion-select-option>
+        <ion-select #esporte [multiple]="true" placeholder="Selecione o esporte desejado">
+          <ion-select-option *ngFor="let e of selecaoEsportes" value="{{e}}">{{e}}</ion-select-option>
         </ion-select>
 
-        <ion-select [multiple]="true" placeholder="Selecione o bairro">
-          <ion-select-option value="apples">Barra da Tijuca</ion-select-option>
-          <ion-select-option value="oranges">Guaratiba</ion-select-option>
-          <ion-select-option value="bananas">Botafogo</ion-select-option>
-          <ion-select-option value="apples">Campo Grande</ion-select-option>
-          <ion-select-option value="oranges">Nova Iguaçu</ion-select-option>
-          <ion-select-option value="bananas">Santa cruz</ion-select-option>
-          <ion-select-option value="apples">Pedra de Guaratiba</ion-select-option>
-          <ion-select-option value="oranges">Recreio</ion-select-option>
-          <ion-select-option value="bananas">Copacabana</ion-select-option>
-          <ion-select-option value="apples">Jacarépaguá</ion-select-option>
-          <ion-select-option value="oranges">Penha</ion-select-option>
-          <ion-select-option value="bananas">Bangu</ion-select-option>
+        <ion-select #bairro [multiple]="true" placeholder="Selecione o bairro">
+          <ion-select-option *ngFor="let b of selecaoBairros" value="{{b}}">{{b}}</ion-select-option>
         </ion-select>
 
-        <ion-select [multiple]="true" placeholder="Selecione o faixa etária">
-          <ion-select-option value="apples">Infantil</ion-select-option>
-          <ion-select-option value="oranges">Adulto/Jovem</ion-select-option>
-          <ion-select-option value="bananas">Idoso</ion-select-option>
+        <ion-select #idade [multiple]="true" placeholder="Selecione o faixa etária">
+          <ion-select-option value="infantil">Infantil</ion-select-option>
+          <ion-select-option value="adultoJovem">Adulto/Jovem</ion-select-option>
+          <ion-select-option value="idoso">Idoso</ion-select-option>
         </ion-select>
 
-        <ion-select [multiple]="true" placeholder="Opções de valor">
-          <ion-select-option value="apples">Pago</ion-select-option>
-          <ion-select-option value="oranges">Gratuito</ion-select-option>
+        <ion-select #valor [multiple]="true" placeholder="Opções de valor">
+          <ion-select-option value="pago">Pago</ion-select-option>
+          <ion-select-option value="gratuito">Gratuito</ion-select-option>
         </ion-select>
 
-        <ion-select [multiple]="true" placeholder="Turno desejado">
-          <ion-select-option value="apples">Manhã</ion-select-option>
-          <ion-select-option value="oranges">Tarde</ion-select-option>
-          <ion-select-option value="bananas">Noite</ion-select-option>
+        <ion-select #turno [multiple]="true" placeholder="Turno desejado">
+          <ion-select-option value="manha">Manhã</ion-select-option>
+          <ion-select-option value="tarde">Tarde</ion-select-option>
+          <ion-select-option value="noite">Noite</ion-select-option>
         </ion-select>
 
         <ion-buttons>
           <ion-button class="btnFiltroLimpar">Limpar filtros</ion-button>
-          <ion-button class="btnFiltro">Pesquisar</ion-button>
+          <ion-button class="btnFiltro" (click)="buscarEmpresas(bairro.value)">Pesquisar</ion-button>
         </ion-buttons>
       </div>
     </ion-content>
@@ -79,7 +57,7 @@
 
   <h1>Resultados:</h1>
 
-  <ion-card class="cardResultado">
+  <ion-card class="cardResultado" *ngFor="let i of infosEmpresas">
     <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
 
     <figure class="logoEmpresaBox">
@@ -89,18 +67,18 @@
     <article class="infoCard">
 
       <div class="agruparInfos Mensalidade">
-        <p>Mensalidade:</p><ion-chip>Default</ion-chip>
+        <p>Mensalidade:</p><ion-chip>{{i.mensalidade}}</ion-chip>
       </div>
 
-      <p class="nomeLocal">Nome do Estabelecimento</p>
-      <p>Endereço completo</p>
+      <p class="nomeLocal">{{i.nomeLocal}}</p>
+      <p>{{i.bairro}}, {{i.rua}}, {{i.numero}} - CEP: {{i.cep}}</p>
 
       <div class="agruparInfos">
-        <p>Esportes:</p><ion-chip>Default</ion-chip>
+        <p>Esportes:</p><ion-chip *ngFor="let e of infosEmpresas[i.indice].esportes">{{e}}</ion-chip>
       </div>
 
       <div class="agruparInfos">
-        <p>Idade:</p><ion-chip>Default</ion-chip>
+        <p>Idade:</p><ion-chip *ngFor="let age of infosEmpresas[i.indice].idade">{{age}}</ion-chip>
       </div>
     </article>
 

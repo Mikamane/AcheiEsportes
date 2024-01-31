@@ -65,7 +65,7 @@ figure {
   --background: white;
   position: absolute;
   z-index: 1000;
-  top: 34.5%;
+  top: 265px;
   left: 5%;
   --border-radius: 5px;
   border-radius: 5px;
@@ -73,7 +73,9 @@ figure {
   padding: 0;
   font-family: 'Roboto Flex', sans-serif;
   font-size: 1.3rem;
+  --placeholder-font-weight: 300;
 }
+
 
 .toolbarMenu {
   height: max-content;
@@ -150,7 +152,6 @@ h1 {
 .infoCard{
   width: 100%;
   min-height: 15vh;
-  border: 1px solid red;
   font-family: 'Roboto Flex', sans-serif;
   display: flex;
   flex-direction: column;
