@@ -9,7 +9,7 @@
       <ion-menu-button class="openMenuBtn" id="filterMenu"> Pesquisa avançada<ion-icon
           name="options-outline"></ion-icon></ion-menu-button>
     </div>
-  </ion-toolbar>
+  </ion-toolbar> 
 
   <ion-searchbar class="searchMenu" show-clear-button="focus"
     placeholder="Pesquise por esporte ou bairro..."></ion-searchbar>
@@ -30,31 +30,33 @@
         </ion-select>
 
         <ion-select #idade [multiple]="true" placeholder="Selecione o faixa etária">
-          <ion-select-option value="infantil">Infantil</ion-select-option>
-          <ion-select-option value="adultoJovem">Adulto/Jovem</ion-select-option>
-          <ion-select-option value="idoso">Idoso</ion-select-option>
+          <ion-select-option value="Infantil">Infantil</ion-select-option>
+          <ion-select-option value="Jovens/Adultos">Jovens/Adultos</ion-select-option>
+          <ion-select-option value="Idosos">Idosos</ion-select-option>
         </ion-select>
 
         <ion-select #valor [multiple]="true" placeholder="Opções de valor">
-          <ion-select-option value="pago">Pago</ion-select-option>
-          <ion-select-option value="gratuito">Gratuito</ion-select-option>
+          <ion-select-option value="paga">Pago</ion-select-option>
+          <ion-select-option value="gratuita">Gratuito</ion-select-option>
         </ion-select>
 
         <ion-select #turno [multiple]="true" placeholder="Turno desejado">
-          <ion-select-option value="manha">Manhã</ion-select-option>
+          <ion-select-option value="manhã">Manhã</ion-select-option>
           <ion-select-option value="tarde">Tarde</ion-select-option>
           <ion-select-option value="noite">Noite</ion-select-option>
         </ion-select>
 
         <ion-buttons>
           <ion-button class="btnFiltroLimpar">Limpar filtros</ion-button>
-          <ion-button class="btnFiltro" (click)="buscarEmpresas(bairro.value)">Pesquisar</ion-button>
+          <ion-button class="btnFiltro" (click)="buscarEmpresas(esporte.value, bairro.value, idade.value, valor.value, turno.value)">Pesquisar</ion-button>
         </ion-buttons>
       </div>
     </ion-content>
   </ion-menu>
 
+  <p class="msgPadrao" *ngIf="infosEmpresas.length == 0"> Utilize a barra de pesquisa ou nossa pesquisa avançada para achar o local perfeito para você!</p>
 
+<div *ngIf="infosEmpresas.length != 0">
   <h1>Resultados:</h1>
 
   <ion-card class="cardResultado" *ngFor="let i of infosEmpresas">
@@ -80,11 +82,16 @@
       <div class="agruparInfos">
         <p>Idade:</p><ion-chip *ngFor="let age of infosEmpresas[i.indice].idade">{{age}}</ion-chip>
       </div>
+
+      <div class="agruparInfos">
+        <p>Turnos:</p><ion-chip *ngFor="let t of infosEmpresas[i.indice].turno">{{t}}</ion-chip>
+      </div>
+      
     </article>
 
     <ion-button class="btnCard">Ver mais</ion-button>
   </ion-card>
-
+</div>
 
 
 

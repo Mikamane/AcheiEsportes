@@ -10,7 +10,6 @@ export class TelaInicialPage implements OnInit {
   selecaoEsportes: any = []
   selecaoBairros: any = []
   infosEmpresas: any = []
-  turnoDesejado: any = []
   indice: number = -1
 
   constructor(private firestore: Firestore) { }
@@ -21,34 +20,46 @@ export class TelaInicialPage implements OnInit {
   }
 
 
-  async buscarEmpresas(bairro: any) {
+  async buscarEmpresas(esporte: any = '', bairro: any = '', idade: any = '', valor: any = '', turno: any = '') {
     this.infosEmpresas = []
-    for(let i = 0; i <= bairro.length ; i++){
-      /* console.log(bairro[i]) */
+    this.indice = -1
+
+    let tamanhoArray = [esporte.length, bairro.length, idade.length, valor.length, turno.length]
+
+    let maior = tamanhoArray[0]
+
+    for (let i in tamanhoArray) {
+      if (tamanhoArray[i] > maior) {
+        maior = tamanhoArray
+      }
+    }
+
+    for (let i = 0; i <= maior; i++) {
       const userQuery = query(
         collection(this.firestore, 'Usuarios'),
-        where('bairro', '==', `${bairro[i]}`)
+        where('esportes', 'array-contains', `${esporte[i]}`),
+        /* where('bairro', '==', `${bairro[i]}`),
+        where('faixaEtaria', 'array-contains', `${idade[i]}`),
+        where('mensalidade', '==', `${valor[i]}`),
+        where('turnos', 'array-contains', `${turno[i]}`) */
       );
       const querySnapshot = await getDocs(userQuery);
       querySnapshot.forEach((doc: any) => {
-        
-        this.turnoDesejado = []
   
-        let verificarTurnos = doc.data()['horarioFuncionamento']
-        console.log(`Verificar turnos${verificarTurnos}`)
-  
-        if (verificarTurnos[0] >= '05:00' && verificarTurnos[1] <= '12:00') {
-          this.turnoDesejado = ['Manhã']
-        } else if (verificarTurnos[0] >= '05:00' && verificarTurnos[1] <= '18:00') {
-          this.turnoDesejado = ['Manhã', 'Tarde']
-        } else {
-          this.turnoDesejado = ['Manhã', 'Tarde', 'Noite']
+        let turnoDesejado = []
+
+        let verificarTurnos = doc.data()['turnos']
+
+        for (let t in verificarTurnos) {
+          turnoDesejado.push(verificarTurnos[t])
         }
-        
+
+        this.indice += 1
+
         this.infosEmpresas = [
           ...this.infosEmpresas,
           {
-            indice: this.indice + 1,
+            indice: this.indice,
             id: doc.id,
             nomeLocal: doc.data()['nomeEstabelecimento'],
             cep: doc.data()['cep'],
@@ -58,12 +69,11 @@ export class TelaInicialPage implements OnInit {
             mensalidade: doc.data()['mensalidade'],
             idade: doc.data()['faixaEtaria'],
             esportes: doc.data()['esportes'],
-            turno: this.turnoDesejado,
+            turno: turnoDesejado,
           },]
       });
-    
     }
-    
+
     document.getElementById('filterMenu')?.click()
   }
 
