@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { collection, doc, setDoc, Firestore, getDoc, query, where, getDocs, } from '@angular/fire/firestore';
+import {
+  uploadBytes,
+  ref,
+  Storage,
+  listAll,
+  getDownloadURL,
+  deleteObject,
+} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-tela-inicial',
@@ -12,7 +20,7 @@ export class TelaInicialPage implements OnInit {
   infosEmpresas: any = []
   indice: number = -1
 
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore, private storage: Storage,) { }
 
   ngOnInit() {
     this.categoriasEsportes()
@@ -20,42 +28,18 @@ export class TelaInicialPage implements OnInit {
   }
 
 
-  async buscarEmpresas(esporte: any = '', bairro: any = '', idade: any = '', valor: any = '', turno: any = '') {
+  async buscarEmpresas(esporte: any = '') {
     this.infosEmpresas = []
     this.indice = -1
 
-    let tamanhoArray = [esporte.length, bairro.length, idade.length, valor.length, turno.length]
-
-    let maior = tamanhoArray[0]
-
-    for (let i in tamanhoArray) {
-      if (tamanhoArray[i] > maior) {
-        maior = tamanhoArray
-      }
-    }
-
-    for (let i = 0; i <= maior; i++) {
+    for (let i = 0; i <= esporte.length; i++) {
       const userQuery = query(
         collection(this.firestore, 'Usuarios'),
-        where('esportes', 'array-contains', `${esporte[i]}`),
-        /* where('bairro', '==', `${bairro[i]}`),
-        where('faixaEtaria', 'array-contains', `${idade[i]}`),
-        where('mensalidade', '==', `${valor[i]}`),
-        where('turnos', 'array-contains', `${turno[i]}`) */
-      );
+        where('esportes', 'array-contains', `${esporte[i]}`));
+
       const querySnapshot = await getDocs(userQuery);
       querySnapshot.forEach((doc: any) => {
-  
-        let turnoDesejado = []
-
-        let verificarTurnos = doc.data()['turnos']
-
-        for (let t in verificarTurnos) {
-          turnoDesejado.push(verificarTurnos[t])
-        }
-
         this.indice += 1
-
         this.infosEmpresas = [
           ...this.infosEmpresas,
           {
@@ -69,12 +53,51 @@ export class TelaInicialPage implements OnInit {
             mensalidade: doc.data()['mensalidade'],
             idade: doc.data()['faixaEtaria'],
             esportes: doc.data()['esportes'],
-            turno: turnoDesejado,
+            turno: doc.data()['turnos'],
+            logoURL: '',
+            fotos: []
           },]
       });
     }
-
+    this.buscarFotoPerfil()
+    this.buscarFotosSlide()
+    console.log(this.infosEmpresas)
     document.getElementById('filterMenu')?.click()
+
+  }
+
+  async buscarFotosSlide() {
+
+    for (let i = 0; i < this.infosEmpresas.length; i++) {
+    let id = this.infosEmpresas[i].id
+      const listRef = ref(this.storage, `fotosUsuarios/${id}`);
+      listAll(listRef)
+        .then((res) => {
+          res.items.forEach((itemRef) => {
+            getDownloadURL(itemRef).then((res) => {
+              console.log(res)
+              this.infosEmpresas[i].fotos.push(res)
+            });
+          });
+        })
+    }
+  }
+
+  async buscarFotoPerfil() {
+
+    for (let i = 0; i < this.infosEmpresas.length; i++) {
+    let id = this.infosEmpresas[i].id
+      const listRef = ref(this.storage, `fotosUsuarios/${id}/FotosPerfil/`);
+      listAll(listRef)
+        .then((res) => {
+          res.items.forEach((itemRef) => {
+            getDownloadURL(itemRef).then((res) => {
+              console.log(res)
+              this.infosEmpresas[i].logoURL = res
+            });
+          });
+        })
+    }
   }
 
   async categoriasEsportes() {
@@ -98,7 +121,6 @@ export class TelaInicialPage implements OnInit {
     }
     this.selecaoBairros.sort()
   }
-
 
 }
 

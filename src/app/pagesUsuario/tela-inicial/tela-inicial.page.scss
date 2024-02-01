@@ -141,6 +141,17 @@ color: gray;
   justify-content: center;
 }
 
+.box-slide{
+  height: 170px;
+}
+
+.imgSlide{
+  object-fit: cover;
+  object-position: center;
+  width: 100px;
+  height: 100px;
+}
+
 .logoEmpresaBox {
   position: absolute;
   z-index: 9999;
@@ -157,7 +168,6 @@ color: gray;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: grayscale(100%);
 }
 
 .infoCard {
@@ -173,11 +183,18 @@ color: gray;
 }
 
 .agruparInfos {
-  gap: 5px;
+  gap: 10px;
   width: max-content;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+}
+
+.turnos{
+  margin-bottom: 10px;
 }
 
 .Mensalidade {
@@ -186,7 +203,37 @@ color: gray;
 }
 
 .nomeLocal {
-  margin: 5px 0 0;
+  margin: 15px 0 5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+}
+
+.endereco{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  color: var(--azul);
+}
+
+ion-chip{
+  width: max-content;
+  padding: 0 8px;
+  color: white;
+}
+
+ion-chip#mensalidade{
+  background-color: var(--azul);
+}
+
+ion-chip#esportes{
+  background-color: var(--laranja);
+}
+
+ion-chip#idade{
+  background-color: var(--vermelho);
+}
+
+ion-chip#turno{
+  background-color: var(--roxo);
 }
 
 .btnCard {

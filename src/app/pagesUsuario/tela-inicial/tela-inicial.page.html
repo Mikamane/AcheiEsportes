@@ -13,7 +13,7 @@
 
   <ion-searchbar class="searchMenu" show-clear-button="focus"
     placeholder="Pesquise por esporte ou bairro..."></ion-searchbar>
-
+  
 
   <ion-menu contentId="filterMenu">
     <ion-toolbar class="toolbarMenu">
@@ -48,7 +48,7 @@
 
         <ion-buttons>
           <ion-button class="btnFiltroLimpar">Limpar filtros</ion-button>
-          <ion-button class="btnFiltro" (click)="buscarEmpresas(esporte.value, bairro.value, idade.value, valor.value, turno.value)">Pesquisar</ion-button>
+          <ion-button class="btnFiltro" (click)="buscarEmpresas(esporte.value)">Pesquisar</ion-button>
         </ion-buttons>
       </div>
     </ion-content>
@@ -60,31 +60,36 @@
   <h1>Resultados:</h1>
 
   <ion-card class="cardResultado" *ngFor="let i of infosEmpresas">
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+
+    <swiper-container class="box-slide" autoplay="3000" speed="800" pagination="true">
+      <swiper-slide *ngFor="let img of infosEmpresas[i.indice].fotos">
+        <img class="imgSlide" src="{{img}}" />
+      </swiper-slide>
+    </swiper-container>
 
     <figure class="logoEmpresaBox">
-      <img class="logoEmpresa" src="https://ionicframework.com/docs/img/demos/card-media.png" alt="">
+      <img class="logoEmpresa" src="{{i.logoURL}}" alt="">
     </figure>
 
     <article class="infoCard">
 
       <div class="agruparInfos Mensalidade">
-        <p>Mensalidade:</p><ion-chip>{{i.mensalidade}}</ion-chip>
+        <p>Mensalidade:</p><ion-chip id="mensalidade">{{i.mensalidade}}</ion-chip>
       </div>
 
       <p class="nomeLocal">{{i.nomeLocal}}</p>
-      <p>{{i.bairro}}, {{i.rua}}, {{i.numero}} - CEP: {{i.cep}}</p>
+      <p class="endereco">{{i.bairro}}, {{i.rua}}, {{i.numero}} / {{i.cep}}</p>
 
       <div class="agruparInfos">
-        <p>Esportes:</p><ion-chip *ngFor="let e of infosEmpresas[i.indice].esportes">{{e}}</ion-chip>
+        <p>Esportes:</p><ion-chip id="esportes" *ngFor="let e of infosEmpresas[i.indice].esportes">{{e}}</ion-chip>
       </div>
 
       <div class="agruparInfos">
-        <p>Idade:</p><ion-chip *ngFor="let age of infosEmpresas[i.indice].idade">{{age}}</ion-chip>
+        <p>Idade:</p><ion-chip id="idade" *ngFor="let age of infosEmpresas[i.indice].idade">{{age}}</ion-chip>
       </div>
 
-      <div class="agruparInfos">
-        <p>Turnos:</p><ion-chip *ngFor="let t of infosEmpresas[i.indice].turno">{{t}}</ion-chip>
+      <div class="agruparInfos turnos">
+        <p>Turnos:</p><ion-chip id="turno" *ngFor="let t of infosEmpresas[i.indice].turno">{{t}}</ion-chip>
       </div>
       
     </article>
