@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionDataService } from 'src/app/Services/session-data.service';
 import {
-  Auth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from '@angular/fire/auth';
-import {
   collection,
   doc,
   setDoc,
@@ -37,7 +30,6 @@ export class FormLoginComponent implements OnInit {
 
   constructor(
     private sessionService: SessionDataService,
-    private auth: Auth,
     private firestore: Firestore,
     private router: Router
   ) { }
@@ -49,12 +41,16 @@ export class FormLoginComponent implements OnInit {
     if (email == '' || pass == '') {
       console.log('Preencha todos os campos!');
     } else {
-      signInWithEmailAndPassword(this.auth, email, pass)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
-          if (user) {
-            this.buscarUsuario(email);
+
+      const userQuery = query(
+          collection(this.firestore, 'Usuarios'),
+          where('email', '==', `${email}`),
+          where('senha', '==', `${pass}`)
+        );
+        const querySnapshot = await getDocs(userQuery);
+
+        if (!querySnapshot.empty) {
+          this.buscarUsuario(email);
             this.loading = true;
 
             setTimeout(() => {
@@ -69,14 +65,12 @@ export class FormLoginComponent implements OnInit {
               /* Limpar os campos dos formularios */
               this.clearInputs = true;
             }, 1000);
-          }
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log(errorCode, errorMessage);
-          console.log('Usuário incorreto ou inexistente');
-        });
+        } else {
+          console.log('Usuário não existe');
+        }
+
+
+      
     }
   }
 
@@ -131,25 +125,11 @@ export class FormLoginComponent implements OnInit {
     } else {
         console.log('Usuário cadastrado com sucesso!');
         /* Cadastrar no Auth */
-        createUserWithEmailAndPassword(
-          this.auth,
-          this.cadInicial.email,
-          this.cadInicial.senha
-        )
-          .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
-            console.log(user);
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-          });
 
         /* Cadastrar no Firestore */
         const User = {
           email: this.cadInicial.email,
+          senha: this.cadInicial.senha,
           nivelAcesso: 'PF',
           nome: nome,
           sobrenome: sobrenome,
@@ -191,26 +171,11 @@ export class FormLoginComponent implements OnInit {
         console.log('Empresa já cadastrada');
       } else {
         console.log('Empresa cadastrada com sucesso!');
-        /* Cadastrar no Auth */
-        createUserWithEmailAndPassword(
-          this.auth,
-          this.cadInicial.email,
-          this.cadInicial.senha
-        )
-          .then((userCredential) => {
-            // Signed up
-            const user = userCredential.user;
-            console.log(user);
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-          });
-
+  
         /* Cadastrar no Firestore */
         const User = {
           email: this.cadInicial.email,
+          senha: this.cadInicial.senha,
           nivelAcesso: 'PJ',
           nomeEmpresa: nome,
           nomeLocal: nomeLocal,
