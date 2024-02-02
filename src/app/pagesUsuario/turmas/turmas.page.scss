@@ -9,4 +9,51 @@ ion-toolbar {
 
 ion-title {
   color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  margin-left: 10vw;
+  text-transform: capitalize;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+ion-content {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  margin: 0;
+  --background: var(--branco);
+}
+
+div {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  font-family: 'Roboto Flex', sans-serif;
+  color: gray;
+  font-weight: 500;
+  letter-spacing: 1px;
+  width: 100%;
+  text-align: center;
+}
+
+a {
+  font-family: 'Roboto Flex', sans-serif;
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  width: 100%;
+  text-align: center;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 50px;
+  opacity: 70%;
 }

@@ -18,6 +18,7 @@ export class TelaInicialPage implements OnInit {
   selecaoEsportes: any = []
   selecaoBairros: any = []
   infosEmpresas: any = []
+  infosFiltradas: any = []
   indice: number = -1
 
   constructor(private firestore: Firestore, private storage: Storage,) { }
@@ -61,7 +62,6 @@ export class TelaInicialPage implements OnInit {
     }
     this.buscarFotoPerfil()
     this.buscarFotosSlide()
-    console.log(this.infosEmpresas)
     document.getElementById('filterMenu')?.click()
 
   }
@@ -69,13 +69,12 @@ export class TelaInicialPage implements OnInit {
   async buscarFotosSlide() {
 
     for (let i = 0; i < this.infosEmpresas.length; i++) {
-    let id = this.infosEmpresas[i].id
+      let id = this.infosEmpresas[i].id
       const listRef = ref(this.storage, `fotosUsuarios/${id}`);
       listAll(listRef)
         .then((res) => {
           res.items.forEach((itemRef) => {
             getDownloadURL(itemRef).then((res) => {
-              console.log(res)
               this.infosEmpresas[i].fotos.push(res)
             });
           });
@@ -86,13 +85,12 @@ export class TelaInicialPage implements OnInit {
   async buscarFotoPerfil() {
 
     for (let i = 0; i < this.infosEmpresas.length; i++) {
-    let id = this.infosEmpresas[i].id
+      let id = this.infosEmpresas[i].id
       const listRef = ref(this.storage, `fotosUsuarios/${id}/FotosPerfil/`);
       listAll(listRef)
         .then((res) => {
           res.items.forEach((itemRef) => {
             getDownloadURL(itemRef).then((res) => {
-              console.log(res)
               this.infosEmpresas[i].logoURL = res
             });
           });

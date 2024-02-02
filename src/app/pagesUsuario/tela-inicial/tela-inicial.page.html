@@ -9,11 +9,11 @@
       <ion-menu-button class="openMenuBtn" id="filterMenu"> Pesquisa avançada<ion-icon
           name="options-outline"></ion-icon></ion-menu-button>
     </div>
-  </ion-toolbar> 
+  </ion-toolbar>
 
   <ion-searchbar class="searchMenu" show-clear-button="focus"
     placeholder="Pesquise por esporte ou bairro..."></ion-searchbar>
-  
+
 
   <ion-menu contentId="filterMenu">
     <ion-toolbar class="toolbarMenu">
@@ -54,49 +54,55 @@
     </ion-content>
   </ion-menu>
 
-  <p class="msgPadrao" *ngIf="infosEmpresas.length == 0"> Utilize a barra de pesquisa ou nossa pesquisa avançada para achar o local perfeito para você!</p>
+  <p class="msgPadrao" *ngIf="infosEmpresas.length == 0"> Utilize a barra de pesquisa ou nossa pesquisa avançada para
+    achar o local perfeito para você!
+    <img class="searchPlaceholder" src="../../../assets/img/Search-amico.svg" alt="">
+  </p>
 
-<div *ngIf="infosEmpresas.length != 0">
-  <h1>Resultados:</h1>
+  <div *ngIf="infosEmpresas.length != 0">
+    <h1>Resultados:</h1>
 
-  <ion-card class="cardResultado" *ngFor="let i of infosEmpresas">
+    <ion-card class="cardResultado" *ngFor="let i of infosEmpresas">
 
-    <swiper-container class="box-slide" autoplay="3000" speed="800" pagination="true">
-      <swiper-slide *ngFor="let img of infosEmpresas[i.indice].fotos">
-        <img class="imgSlide" src="{{img}}" />
-      </swiper-slide>
-    </swiper-container>
+      <swiper-container class="box-slide" autoplay="3000" speed="800" pagination="true">
+        <swiper-slide>
+          <img class="imgSlide" src="{{i.fotos[0]}}" />
+        </swiper-slide>
+        <swiper-slide>
+          <img class="imgSlide" src="{{i.fotos[1]}}" />
+        </swiper-slide>
+      </swiper-container>
 
-    <figure class="logoEmpresaBox">
-      <img class="logoEmpresa" src="{{i.logoURL}}" alt="">
-    </figure>
+      <figure class="logoEmpresaBox">
+        <img class="logoEmpresa" src="{{i.logoURL}}" alt="">
+      </figure>
 
-    <article class="infoCard">
+      <article class="infoCard">
 
-      <div class="agruparInfos Mensalidade">
-        <p>Mensalidade:</p><ion-chip id="mensalidade">{{i.mensalidade}}</ion-chip>
-      </div>
+        <div class="agruparInfos Mensalidade">
+          <p>Mensalidade:</p><ion-chip id="mensalidade">{{i.mensalidade}}</ion-chip>
+        </div>
 
-      <p class="nomeLocal">{{i.nomeLocal}}</p>
-      <p class="endereco">{{i.bairro}}, {{i.rua}}, {{i.numero}} / {{i.cep}}</p>
+        <p class="nomeLocal">{{i.nomeLocal}}</p>
+        <p class="endereco">{{i.bairro}}, {{i.rua}}, {{i.numero}} / {{i.cep}}</p>
 
-      <div class="agruparInfos">
-        <p>Esportes:</p><ion-chip id="esportes" *ngFor="let e of infosEmpresas[i.indice].esportes">{{e}}</ion-chip>
-      </div>
+        <div class="agruparInfos">
+          <p>Esportes:</p><ion-chip id="esportes" *ngFor="let e of infosEmpresas[i.indice].esportes">{{e}}</ion-chip>
+        </div>
 
-      <div class="agruparInfos">
-        <p>Idade:</p><ion-chip id="idade" *ngFor="let age of infosEmpresas[i.indice].idade">{{age}}</ion-chip>
-      </div>
+        <div class="agruparInfos">
+          <p>Idade:</p><ion-chip id="idade" *ngFor="let age of infosEmpresas[i.indice].idade">{{age}}</ion-chip>
+        </div>
 
-      <div class="agruparInfos turnos">
-        <p>Turnos:</p><ion-chip id="turno" *ngFor="let t of infosEmpresas[i.indice].turno">{{t}}</ion-chip>
-      </div>
-      
-    </article>
+        <div class="agruparInfos turnos">
+          <p>Turnos:</p><ion-chip id="turno" *ngFor="let t of infosEmpresas[i.indice].turno">{{t}}</ion-chip>
+        </div>
 
-    <ion-button class="btnCard">Ver mais</ion-button>
-  </ion-card>
-</div>
+      </article>
+
+      <ion-button class="btnCard">Ver mais</ion-button>
+    </ion-card>
+  </div>
 
 
 

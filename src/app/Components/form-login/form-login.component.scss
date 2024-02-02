@@ -13,7 +13,7 @@ Cores tema:
 --branco: #E6E6FA;
 */
 
-ion-progress-bar{
+ion-progress-bar {
   position: absolute;
   z-index: 999999;
   top: 0;
@@ -25,7 +25,7 @@ ion-content {
   width: 100vw;
   display: flex;
   flex-direction: column;
-  --padding-top: 210px;
+  --padding-top: 15px;
   --padding-bottom: 0px;
   --padding-start: 13px;
   --padding-end: 13px;
@@ -50,10 +50,9 @@ ion-button {
 /* logo */
 figure {
   max-width: 400px;
-  position: absolute;
-  z-index: 9999999;
-  margin: 0;
-  padding: 30px 8px 0;
+  position: relative;
+  margin: 20px 0 30px;
+  padding: 0 8px 0;
 }
 
 .visible {
@@ -91,7 +90,7 @@ footer {
 
 .main {
   width: 100%;
-  height: 100%;
+  height: max-content;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -100,7 +99,7 @@ footer {
 form {
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  min-height: max-content;
+  height: max-content;
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -132,7 +131,7 @@ ion-input {
   font-size: 1rem;
 }
 
-ion-label{
+ion-label {
   font-size: 1.2rem;
   text-transform: capitalize;
   letter-spacing: 1px;
@@ -179,6 +178,7 @@ h6 {
 }
 
 /* ##### Início da escolha de forma de cadastro ##### */
+
 .titleEscolha {
   font-size: 1.09rem;
   width: 100%;
@@ -216,12 +216,16 @@ h6 {
   width: max-content;
 }
 
-.titleContinue{
-    position: fixed;
-    top: 5%;
+.titleContinue {
+  position: fixed;
+  top: 5%;
 }
 
-.form2{
-    margin-top: 0;
-    padding-bottom: 0;
+.form2 {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+.continueCad {
+  margin-top: 180px;
 }

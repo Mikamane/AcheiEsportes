@@ -2,6 +2,11 @@
 font-family: 'Montserrat', sans-serif;
 font-family: 'Roboto Flex', sans-serif; */
 
+
+ion-content {
+  --background: var(--branco);
+}
+
 .main {
   display: flex;
   flex-direction: column;
@@ -62,7 +67,7 @@ figure {
 
 .searchMenu {
   width: 90%;
-  --background: white;
+  --background: var(--branco);
   position: absolute;
   z-index: 1000;
   top: 265px;
@@ -123,33 +128,38 @@ h1 {
 
 .msgPadrao {
   width: 100%;
-  padding: 20px;
+  padding: 0px 10px 0 0;
   text-align: center;
-  font-family:'Roboto Flex', sans-serif;
+  font-family: 'Roboto Flex', sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
-margin-top: 30px;
-color: gray;
+  margin-top: 50px;
+  color: gray;
+}
+
+.searchPlaceholder {
+  width: 70%;
+  height: auto;
+  margin-top: 10px;
+  border-radius: 50px;
+  opacity: 70%;
 }
 
 .cardResultado {
   width: 90%;
   margin: auto auto 50px auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-color: rgb(235, 235, 235);
 }
 
-.box-slide{
+.box-slide {
   height: 170px;
 }
 
-.imgSlide{
+.imgSlide {
   object-fit: cover;
   object-position: center;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
 }
 
 .logoEmpresaBox {
@@ -193,7 +203,7 @@ color: gray;
   font-weight: 500;
 }
 
-.turnos{
+.turnos {
   margin-bottom: 10px;
 }
 
@@ -208,31 +218,31 @@ color: gray;
   font-weight: 600;
 }
 
-.endereco{
+.endereco {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
   color: var(--azul);
 }
 
-ion-chip{
+ion-chip {
   width: max-content;
   padding: 0 8px;
   color: white;
 }
 
-ion-chip#mensalidade{
+ion-chip#mensalidade {
   background-color: var(--azul);
 }
 
-ion-chip#esportes{
+ion-chip#esportes {
   background-color: var(--laranja);
 }
 
-ion-chip#idade{
+ion-chip#idade {
   background-color: var(--vermelho);
 }
 
-ion-chip#turno{
+ion-chip#turno {
   background-color: var(--roxo);
 }
 
